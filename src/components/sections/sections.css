@@ -1,0 +1,49 @@
+.container{
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    align-self: start;
+    padding: 30px 0;
+    position: relative;
+}
+.container-header {
+    text-align: center;
+    font-size: 20px;
+    margin: 0 auto;
+}
+
+
+@media (min-width: 1024px) {
+    .container-header {
+        font-size: 30px;
+    }
+}
+
+.done-section{
+    background: #9DB097;
+}
+
+.in-progress-section{
+    background: #8F534F;
+}
+
+.to-do-section{
+    background: #BF9292;
+}
+
+.add-cross:before,
+.add-cross:after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    width: 25px;
+    height: 2px;
+    background: #fff;
+    cursor: pointer
+}
+
+.add-cross:before {
+    webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
