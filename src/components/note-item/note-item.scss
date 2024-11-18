@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    min-width: 285px;
     gap: 5px;
 }
 
@@ -24,7 +23,7 @@
 }
 
 .note-list-item {
-    background: #FFC7C2;
+    background: #a3736f;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -46,4 +45,12 @@
 .note-list-date{
     font-style: italic;
     font-size: 14px;
+}
+@media(max-width: 1023px) {
+    .note-list-title{
+        font-size: 14px;
+    }
+    .note-list-date {
+        font-size: 10px;
+    }
 }

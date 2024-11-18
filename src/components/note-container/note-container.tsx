@@ -1,6 +1,6 @@
 import {NoteItem} from "../note-item/note-item.tsx";
 import {FC} from "react";
-import './note-container.css'
+import './note-container.scss'
 
 export const NoteContainer: FC = () =>  {
     return (
