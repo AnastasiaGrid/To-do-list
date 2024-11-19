@@ -7,6 +7,7 @@
 body,
 h1,
 h2,
+h3,
 p,
 a {
   margin: 0;
@@ -18,7 +19,11 @@ body {
   min-height: 100vh;
   font-family: Inter, sans-serif;
   color: white;
+  position: relative;
 }
+#modal {
+}
+// #TODO Перенести в переменную бордер радиус
 
 @media(max-width: 767px){
   #root {

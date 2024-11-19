@@ -6,9 +6,6 @@ export const NoteContainer: FC = () =>  {
     return (
         <section className='note-container'>
             <NoteItem/>
-            <NoteItem/>
-            <NoteItem/>
-            <NoteItem/>
         </section>
 )
 }
