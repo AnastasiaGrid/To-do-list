@@ -1,37 +1,40 @@
-@import '../../styles/globals';
+@use '../../styles/globals' as global;
+
 .priority-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 85%;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+  margin: 0 auto;
 }
 
 .priority-block {
-    h2 {
+  h2 {
     text-align: center;
     padding: 10px 20px;
     box-sizing: border-box;
     font-size: 20px;
     width: 100%;
-    border-radius: $border-radius;
+    border-radius: global.$border-radius;
     margin: 30px 0 15px;
-    }
+  }
 }
 
-.high-priority {
-    background:  #a12b11;
+.high {
+  background: global.$high-priority-color;
 }
-.medium-priority {
-    background: #b94e37;
+
+.medium {
+  background: global.$medium-priority-color;
 }
-.low-priority {
-    background: #b16d5e;
+
+.low {
+  background: global.$low-priority-color;
 }
 
 @media(max-width: 1023px) {
-   .priority-block-title{
-       font-size: 15px;
-   }
+  .priority-block-title {
+    font-size: 15px;
+  }
 }

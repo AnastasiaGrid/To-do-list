@@ -1,14 +1,16 @@
-@mixin modal-el-edit{
+@use '../../../styles/globals' as global;
+
+@mixin modal-el-edit {
   width: 100%;
-  background-color: #BF9292;
+  background-color: global.$low-priority-color;
   border: none;
   border-radius: 2px;
   padding: 10px;
   box-sizing: border-box;
-  color: white;
+  color: global.$font-color;
 }
 
-.modal{
+.modal {
   width: 500px;
   height: 330px;
   position: fixed;
@@ -16,9 +18,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  background-color: #000;
+  background-color: global.$background-color;
   z-index: 1000;
 }
+
 .overlay {
   position: fixed;
   top: 0;
@@ -28,26 +31,36 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.button-close:before,
-.button-close:after{
-  content: "";
-  position: absolute;
-  top: 25px;
-  right: 20px;
+//.content-title {
+//  display: flex;
+//  align-items: center;
+//  justify-content: space-between;
+//  width: 100%;
+//  color: global.$main-color;
+//}
+
+.content-cross {
+  cursor: pointer;
   width: 20px;
-  height: 2px;
-  background: #fff;
-  cursor: pointer
+  height: 20px;
+  position: relative;
 }
 
-.button-close:after{
+.close-cross:before {
+  position: absolute;
+  top: 10px;
+  width: 20px;
+  height: 2px;
+  background-color: global.$main-color;
   webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
-.button-close:before {
-  webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+.close-cross:before {
+  content: "";
+  display: block;
+  webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .content {
@@ -59,21 +72,29 @@
   width: 100%;
   box-sizing: border-box;
   padding: 15px 20px;
-  color: white;
 }
+
 .content {
-  input {
-    @include modal-el-edit
+  h3 {
+    color: global.$main-color;
   }
+
+  input {
+    @include modal-el-edit;
+  }
+
   textarea {
     resize: none;
-    @include modal-el-edit
+    @include modal-el-edit;
   }
+
   button {
+    @include modal-el-edit;
     cursor: pointer;
-    @include modal-el-edit
+    background-color: global.$main-color;
   }
 }
+
 .content-details {
   display: flex;
   flex-direction: row;
@@ -83,15 +104,26 @@
 }
 
 .content-details__group {
-  p{
+  p {
     font-size: 14px;
     padding-bottom: 3px;
+    color: global.$main-color;
   }
-  span{
+
+  span {
     display: block;
     @include modal-el-edit
   }
-  select{
+
+  span p {
+    color: global.$font-color;
+  }
+
+  select {
     @include modal-el-edit
+  }
+
+  input {
+    color: global.$font-color;
   }
 }
