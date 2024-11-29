@@ -1,8 +1,8 @@
-import {ReactElement} from "react";
-import './modal.scss'
+import { ReactElement } from 'react';
+import '../ui/modalUI/modal.scss';
 
-export function ModalOverlay(): ReactElement {
-    return (
-        <div className='overlay'></div>
-    )
+export function ModalOverlay({ onClick }: { onClick: () => void }): ReactElement {
+  return (
+    <div className="overlay" onClick={onClick}></div>
+  );
 }
