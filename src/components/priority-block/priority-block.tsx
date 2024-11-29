@@ -1,16 +1,18 @@
-import './priority-block.scss'
-import {NoteContainer} from "../note-container/note-container.tsx";
+import './priority-block.scss';
+import { NoteContainer } from '../note-container/note-container.tsx';
+import { TPriority, TSection } from '../../utils/types.ts';
+
 interface IPriorityBlock {
-    title: string;
-    classes: string;
+  section: TSection;
+  priority: TPriority;
 }
 
-export function PriorityBlock ({title, classes}: IPriorityBlock) {
-    return (
-        <div className='priority-block'>
-            <h2 className={`${classes}`}>{title}</h2>
-            <NoteContainer/>
-        </div>
+export function PriorityBlock({ section, priority }: IPriorityBlock) {
+  return (
+    <div className="priority-block">
+      <h2 className={`${priority}`}>{priority} priority</h2>
+      <NoteContainer priority={priority} section={section} />
+    </div>
 
-    )
+  );
 }
