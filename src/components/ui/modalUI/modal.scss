@@ -20,6 +20,7 @@
   border-radius: 10px;
   background-color: global.$background-color;
   z-index: 1000;
+  font-size: global.$font-size-s;
 }
 
 .overlay {
@@ -38,18 +39,24 @@
 //  width: 100%;
 //  color: global.$main-color;
 //}
-
-.content-cross {
+.close-cross {
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
-  position: relative;
+  position: absolute;
+  top: 20px;
+  right: 10px;
 }
 
-.close-cross:before {
+.close-cross:before,
+.close-cross:after {
+  content: "";
+  display: block;
   position: absolute;
-  top: 10px;
-  width: 20px;
+  top: 5px;
+  right: 10px;
+  width: 15px;
   height: 2px;
   background-color: global.$main-color;
   webkit-transform: rotate(45deg);
@@ -57,10 +64,8 @@
 }
 
 .close-cross:before {
-  content: "";
-  display: block;
-  webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
+  webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
 }
 
 .content {
@@ -77,15 +82,27 @@
 .content {
   h3 {
     color: global.$main-color;
+    font-size: global.$font-size-l;
   }
 
   input {
     @include modal-el-edit;
   }
 
+  input::placeholder {
+    color: global.$font-color;
+  }
+
   textarea {
     resize: none;
     @include modal-el-edit;
+
+  }
+
+  textarea::placeholder {
+    color: global.$font-color;
+    font-family: Inter, sans-serif;
+
   }
 
   button {
@@ -105,7 +122,6 @@
 
 .content-details__group {
   p {
-    font-size: 14px;
     padding-bottom: 3px;
     color: global.$main-color;
   }
