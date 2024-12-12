@@ -9,6 +9,17 @@
   margin: 0 auto;
 }
 
+.note-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+}
+
 .priority-block {
   h2 {
     text-align: center;

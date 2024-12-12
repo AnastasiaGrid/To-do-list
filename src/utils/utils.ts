@@ -33,6 +33,33 @@ export function getDoneTasksFromLocalStorage(): ITaskItem[] {
 
 setLocalStorage({
   section: 'to do',
+  title: 'task-1',
+  description: 'test',
+  priority: 'low',
+  dateOfStart: 'test',
+  dateOfEnd: 'test',
+  id: 1123
+});
+setLocalStorage({
+  section: 'to do',
+  title: 'task-2',
+  description: 'test',
+  priority: 'low',
+  dateOfStart: 'test',
+  dateOfEnd: 'test',
+  id: 1123
+});
+setLocalStorage({
+  section: 'to do',
+  title: 'task-3',
+  description: 'test',
+  priority: 'medium',
+  dateOfStart: 'test',
+  dateOfEnd: 'test',
+  id: 1123
+});
+setLocalStorage({
+  section: 'to do',
   title: 'test',
   description: 'test',
   priority: 'high',
@@ -40,6 +67,8 @@ setLocalStorage({
   dateOfEnd: 'test',
   id: 1123
 });
+
+
 setLocalStorage({
   section: 'in progress',
   title: 'test -2',
@@ -49,9 +78,49 @@ setLocalStorage({
   dateOfEnd: 'test',
   id: 777
 });
+
+setLocalStorage({
+  section: 'in progress',
+  title: 'test -2',
+  description: 'test',
+  priority: 'low',
+  dateOfStart: 'test',
+  dateOfEnd: 'test',
+  id: 777
+});
+setLocalStorage({
+  section: 'in progress',
+  title: 'test -2',
+  description: 'test',
+  priority: 'low',
+  dateOfStart: 'test',
+  dateOfEnd: 'test',
+  id: 777
+});
+
+setLocalStorage({
+  section: 'in progress',
+  title: 'test -2',
+  description: 'test',
+  priority: 'high',
+  dateOfStart: 'test',
+  dateOfEnd: 'test',
+  id: 777
+});
+
+
 setLocalStorage({
   section: 'done',
   title: 'test -3',
+  description: 'test',
+  priority: 'high',
+  dateOfStart: 'test',
+  dateOfEnd: 'test',
+  id: 777
+});
+setLocalStorage({
+  section: 'done',
+  title: 'test -4',
   description: 'test',
   priority: 'medium',
   dateOfStart: 'test',
