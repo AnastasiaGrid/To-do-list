@@ -1,17 +1,17 @@
-import './app.scss'
-import {TodoSection} from "../sections/todo-section.tsx";
-import {InProgressSection} from "../sections/in-progress-section.tsx";
-import {DoneSection} from "../sections/done-section.tsx";
+import './app.scss';
+import { TodoSection } from '../status-block/Todo-section.tsx';
+import { InProgressSection } from '../status-block/In-progress-section.tsx';
+import { DoneSection } from '../status-block/Done-section.tsx';
 
 export function App() {
 
   return (
-      <>
-          <TodoSection/>
-          <InProgressSection/>
-          <DoneSection/>
-      </>
-  )
+    <>
+      <TodoSection />
+      <InProgressSection />
+      <DoneSection />
+    </>
+  );
 }
 
-export default App
+export default App;
