@@ -4,7 +4,7 @@ import {
   getInProgTasksFromLocalStorage,
   getToDoTasksFromLocalStorage
 } from '../../utils/utils.ts';
-import { NoteItemUI } from '../ui/noteItemUI/noteItemUI.tsx';
+import { NoteItemUI } from '../ui/noteItemUI/NoteItemUI.tsx';
 
 const tasksFromTodo = getToDoTasksFromLocalStorage();
 const tasksFromInProg = getInProgTasksFromLocalStorage();
@@ -18,16 +18,30 @@ const tasksFromInProgLow = tasksFromInProg.filter(item => item.priority === 'low
 const tasksFromInProgMedium = tasksFromInProg.filter(item => item.priority === 'medium');
 const tasksFromInProgHigh = tasksFromInProg.filter(item => item.priority === 'high');
 
+export const getfilteredLow = (tasks: ITaskItem[]) => {
+  return tasks.filter(item => item.priority === 'low');
+};
 
-export function isTasksInPriority(section: TSection) {
+export const getfilteredMedium = (tasks: ITaskItem[]) => {
+  return tasks.filter(item => item.priority === 'medium');
+};
+
+export const getfilteredHigh = (tasks: ITaskItem[]) => {
+  return tasks.filter(item => item.priority === 'high');
+};
+
+export function isTasksInPriority(section: TSection, tasks: ITaskItem[]) {
   const result = {
     high: true,
     medium: true,
     low: true
   };
+  const tasksFromTodo = tasks.filter((item: ITaskItem) => item.section === 'to do');
+
   switch (section) {
     case 'to do':
-      if (tasksFromTodoLow.length === 0) {
+
+      if (tasksFromTodo.filter(item => item.priority === 'low').length === 0) {
         result.low = false;
       }
       if (tasksFromTodoMedium.length === 0) {
@@ -57,10 +71,12 @@ export function isTasksInPriority(section: TSection) {
 }
 
 
-export function getFilteredTask(section: TSection) {
+export function getFilteredTask(section: TSection, tasks: ITaskItem[]) {
   let noteItemLow;
   let noteItemMedium;
   let noteItemHigh;
+  const tasksFromTodo = tasks.filter((item: ITaskItem) => item.section === 'to do');
+  const tasksFromTodoLow = tasksFromTodo.filter(item => item.priority === 'low');
 
   if (section === 'to do') {
     noteItemLow = tasksFromTodoLow.map((item: ITaskItem) => <NoteItemUI priority={item.priority} taskTitle={item.title}
