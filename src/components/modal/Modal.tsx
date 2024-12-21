@@ -1,18 +1,82 @@
-import { ReactElement } from 'react';
+import { FormEvent, ReactElement, useState } from 'react';
 import ReactDOM from 'react-dom';
-import '../ui/modalUI/modal.scss';
-import { setToday } from '../../utils/utils.ts';
-import { ModalUI } from '../ui/modalUI/ModalUI.tsx';
+import './modal.scss';
+import { setToday, toFormatDate } from '../../utils/utils.ts';
 import { IModalProps } from '../../utils/types.ts';
+import { ModalOverlay } from './ModalOverlay.tsx';
+import { Input } from './ui/Input.tsx';
+import { TextArea } from './ui/TextArea.tsx';
+import { Select } from './ui/Select.tsx';
 
 const modalRoot = document.getElementById('modal');
 
-export const Modal = ({ section, onClose }: IModalProps): ReactElement => {
+export const Modal = ({ section, onClose, handleSetTask }: IModalProps): ReactElement => {
   const date = setToday();
   //Как хранить дату?
+  const [inputValue, setInputValue] = useState('');
+  const [textAreaValue, setTextAreaValue] = useState('');
+  const [selectValue, setSelectValue] = useState('high');
+  const [dateOfEnd, setDateOfEnd] = useState('');
 
+  const onChangeInput = (value: string) => {
+    setInputValue(value);
+  };
+  const onChangeTextArea = (value: string) => {
+    setTextAreaValue(value);
+  };
+  const onChangeSelectValue = (value: string) => {
+    setSelectValue(value);
+  };
+  const onChangeDateOfEnd = (value: string) => {
+    setDateOfEnd(value);
+  };
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSetTask({
+      section: section,
+      title: inputValue,
+      description: textAreaValue,
+      priority: selectValue,
+      dateOfStart: date,
+      dateOfEnd: toFormatDate(dateOfEnd),
+      id: 123
+    });
+    // alert('задача создана');
+    onClose();
+  };
   return ReactDOM.createPortal((
-      <ModalUI onClose={onClose} section={section} date={date}></ModalUI>
-    ), modalRoot!
-  );
+      <>
+        <form className="modal" noValidate onSubmit={onSubmit}>
+          <div className="close-cross" onClick={onClose}></div>
+          <div className="content">
+            <h3>{section}</h3>
+            <Input type="text" name="title of task" id="title" placeholder="Название задачи" value={inputValue}
+                   onChange={onChangeInput} />
+            <TextArea id="content" placeholder="Описание..." rows={5} value={textAreaValue}
+                      onChange={onChangeTextArea} />
+            <div className="content-details">
+              <div className="content-details__group">
+                <p>Выберите приоритет</p>
+                <Select name="Приоритет" id="name" onChange={onChangeSelectValue} value={selectValue} />
+              </div>
+              <div className="content-details__group">
+                <p>Дата создания</p>
+                <span><p>{date}</p></span>
+              </div>
+              <div className="content-details__group">
+                <p>Выполнить до</p>
+                <Input type="date" name="date of end" id="dateOfEnd" value={dateOfEnd}
+                       onChange={onChangeDateOfEnd} />
+              </div>
+            </div>
+            <button type="button" onClick={onSubmit}>Сохранить изменения</button>
+          </div>
+        </form>
+        <ModalOverlay onClick={onClose} />;
+      </>
+    ),
+    modalRoot!
+  )
+    ;
 };

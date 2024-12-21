@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import '../ui/modalUI/modal.scss';
+import './modal.scss';
 
 export function ModalOverlay({ onClick }: { onClick: () => void }): ReactElement {
   return (

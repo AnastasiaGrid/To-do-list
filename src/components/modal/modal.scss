@@ -1,4 +1,4 @@
-@use '../../../styles/globals' as global;
+@use '../../styles/globals' as global;
 
 @mixin modal-el-edit {
   width: 100%;
@@ -8,6 +8,8 @@
   padding: 10px;
   box-sizing: border-box;
   color: global.$font-color;
+  font-family: Inter, sans-serif;
+  font-size: global.$font-size-s;
 }
 
 .modal {
@@ -83,6 +85,10 @@
   h3 {
     color: global.$main-color;
     font-size: global.$font-size-l;
+  }
+
+  label {
+    width: 100%;
   }
 
   input {
