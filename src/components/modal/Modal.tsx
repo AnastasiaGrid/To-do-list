@@ -1,16 +1,17 @@
 import { FormEvent, ReactElement, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './modal.scss';
-import { setToday, toFormatDate } from '../../utils/utils.ts';
+import { setToday, toFormatDate } from '../../utils/utils.tsx';
 import { IModalProps } from '../../utils/types.ts';
 import { ModalOverlay } from './ModalOverlay.tsx';
 import { Input } from './ui/Input.tsx';
 import { TextArea } from './ui/TextArea.tsx';
 import { Select } from './ui/Select.tsx';
+import { nanoid } from 'nanoid';
 
 const modalRoot = document.getElementById('modal');
 
-export const Modal = ({ section, onClose, handleSetTask }: IModalProps): ReactElement => {
+export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactElement => {
   const date = setToday();
   //Как хранить дату?
   const [inputValue, setInputValue] = useState('');
@@ -34,13 +35,13 @@ export const Modal = ({ section, onClose, handleSetTask }: IModalProps): ReactEl
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSetTask({
-      section: section,
+      status: status,
       title: inputValue,
       description: textAreaValue,
       priority: selectValue,
       dateOfStart: date,
       dateOfEnd: toFormatDate(dateOfEnd),
-      id: 123
+      id: nanoid()
     });
     // alert('задача создана');
     onClose();
@@ -50,7 +51,7 @@ export const Modal = ({ section, onClose, handleSetTask }: IModalProps): ReactEl
         <form className="modal" noValidate onSubmit={onSubmit}>
           <div className="close-cross" onClick={onClose}></div>
           <div className="content">
-            <h3>{section}</h3>
+            <h3>{status}</h3>
             <Input type="text" name="title of task" id="title" placeholder="Название задачи" value={inputValue}
                    onChange={onChangeInput} />
             <TextArea id="content" placeholder="Описание..." rows={5} value={textAreaValue}
