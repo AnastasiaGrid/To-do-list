@@ -1,15 +1,15 @@
 import './app.scss';
-import { TodoSection } from '../status-block/Todo-section.tsx';
-import { InProgressSection } from '../status-block/In-progress-section.tsx';
-import { DoneSection } from '../status-block/Done-section.tsx';
+import { Todo } from '../status-block/Todo.tsx';
+import { InProgress } from '../status-block/InProgress.tsx';
+import { Done } from '../status-block/Done.tsx';
 
 export function App() {
 
   return (
     <>
-      <TodoSection />
-      <InProgressSection />
-      <DoneSection />
+      <Todo />
+      <InProgress />
+      <Done />
     </>
   );
 }
