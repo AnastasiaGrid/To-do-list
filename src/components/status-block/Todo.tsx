@@ -20,9 +20,9 @@ export function Todo({ tasks, handleSetTask }: ISectionStatusProps) {
       <div className={`container`}>
         <div className="add-cross" onClick={handleCrossClick}></div>
         <h1>To do</h1>
-        <PriorityBlock status={'to do'} priority={'high'} children={getFilteredTask(tasks, 'high')} />
-        <PriorityBlock status={'to do'} priority={'medium'} children={getFilteredTask(tasks, 'medium')} />
-        <PriorityBlock status={'to do'} priority={'low'} children={getFilteredTask(tasks, 'low')} />
+        <PriorityBlock status={'to do'} priority={'high'} tasks={getFilteredTask(tasks, 'high')} />
+        <PriorityBlock status={'to do'} priority={'medium'} tasks={getFilteredTask(tasks, 'medium')} />
+        <PriorityBlock status={'to do'} priority={'low'} tasks={getFilteredTask(tasks, 'low')} />
       </div>
       {modalVisible && (<Modal status={'to do'} onClose={handleClose} handleSetTask={handleSetTask} />)}
     </>

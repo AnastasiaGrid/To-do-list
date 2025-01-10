@@ -20,9 +20,9 @@ export function InProgress({ tasks, handleSetTask }: ISectionStatusProps) {
       <div className={`container`}>
         <div className="add-cross" onClick={handleCrossClick}></div>
         <h1>In Progress</h1>
-        <PriorityBlock status={'in progress'} priority={'high'} children={getFilteredTask(tasks, 'high')} />
-        <PriorityBlock status={'in progress'} priority={'medium'} children={getFilteredTask(tasks, 'medium')} />
-        <PriorityBlock status={'in progress'} priority={'low'} children={getFilteredTask(tasks, 'low')} />
+        <PriorityBlock status={'in progress'} priority={'high'} tasks={getFilteredTask(tasks, 'high')} />
+        <PriorityBlock status={'in progress'} priority={'medium'} tasks={getFilteredTask(tasks, 'medium')} />
+        <PriorityBlock status={'in progress'} priority={'low'} tasks={getFilteredTask(tasks, 'low')} />
       </div>
       {modalVisible && (<Modal status={'in progress'} onClose={handleClose} handleSetTask={handleSetTask} />)}
     </>

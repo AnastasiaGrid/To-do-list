@@ -9,7 +9,7 @@ export function Done({ tasks }: { tasks: ITaskItem[] }) {
     <>
       <div className={`container`}>
         <h1>Done</h1>
-        <PriorityBlock status={'done'} priority={'low'} children={getFilteredTask(tasks)} />
+        <PriorityBlock status={'done'} priority={'low'} tasks={getFilteredTask(tasks)} />
       </div>
     </>
   );

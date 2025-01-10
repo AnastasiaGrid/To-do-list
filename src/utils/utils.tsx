@@ -1,6 +1,4 @@
 import { ITaskItem, TPriority, TStorage } from './types.ts';
-import { nanoid } from 'nanoid';
-import { NoteItem } from '../components/ui/NoteItem/NoteItem.tsx';
 
 //работа с датами
 export function setToday(): string {
@@ -63,27 +61,7 @@ export function getTasksFromLocalStorage(storage: TStorage): ITaskItem[] {
 //Возвращает отфильтрованные таски по приоритету для вставки UI
 export function getFilteredTask(tasks: ITaskItem[], priority?: TPriority) {
   const filteredTasksByPriority = tasks.filter(item => item.priority === priority);
-  const key = nanoid();
-  const anotherKey = nanoid();
-
-  if (tasks.length === 0) {
-    return null;
-  }
-  //для секции Done
-  if (!priority) {
-    return tasks.map((item: ITaskItem) => {
-      return <NoteItem task={item} key={key} />;
-    });
-  }
-
-  if (filteredTasksByPriority.length === 0) {
-    return null;
-  } else {
-    return filteredTasksByPriority.map((item: ITaskItem) => {
-      return <NoteItem task={item} key={anotherKey} />;
-    });
-  }
-
+  return filteredTasksByPriority.length ? filteredTasksByPriority : null;
 }
 
 // export function getToDoTasksFromLocalStorage(): ITaskItem[] {
