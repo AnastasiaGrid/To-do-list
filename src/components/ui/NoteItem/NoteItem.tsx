@@ -4,17 +4,21 @@ import '../../priority-block/priority-block.scss';
 import { ITaskItem } from '../../../utils/types.ts';
 import { nanoid } from 'nanoid';
 import { Input } from '../../modal/ui/Input.tsx';
-import { deleteTask } from '../../../utils/utils.tsx';
 
-export function NoteItem({ task }: { task: ITaskItem, }): ReactElement {
+interface INoteItemProps {
+  task: ITaskItem;
+  handleClickCheckbox?: (value: string) => void;
+}
+
+export function NoteItem({ task, handleClickCheckbox }: INoteItemProps): ReactElement {
   const key = nanoid();
   const [isChecked, setChecked] = useState<boolean>(false);
-  const handleClickCheckbox = (value: string) => {
-    if (value) {
-      setChecked(true);
-      deleteTask(task);
-    }
-  };
+  // const handleClickCheckbox = (value: string) => {
+  //   if (value) {
+  //     setChecked(true);
+  //     deleteTask(task);
+  //   }
+  // };
 
   return (
     <>{!isChecked ?

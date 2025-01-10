@@ -10,6 +10,7 @@ interface IPriorityBlock {
 }
 
 export function PriorityBlock({ status, priority, children }: IPriorityBlock) {
+
   if (children) {
     return (
       <div className="priority-block">

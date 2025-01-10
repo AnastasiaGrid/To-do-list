@@ -32,4 +32,7 @@ export interface INoteItemUI {
 
 export type TStorage = 'todoTasks' | 'inProgTasks' | 'doneTasks'
 
-
+export interface ISectionStatusProps {
+  tasks: ITaskItem[];
+  handleSetTask: (task: ITaskItem) => void;
+}
