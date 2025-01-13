@@ -2,10 +2,10 @@ import { FormEvent, ReactElement, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './modal.scss';
 import { setToday, toFormatDate } from '../../utils/utils.tsx';
-import { IModalProps } from '../../utils/types.ts';
+import { IModalProps, TPriority } from '../../utils/types.ts';
 import { ModalOverlay } from './ModalOverlay.tsx';
 import { Input } from './ui/Input.tsx';
-import { TextArea } from './ui/TextArea.tsx';
+import { Textarea } from './ui/Textarea.tsx';
 import { Select } from './ui/Select.tsx';
 import { nanoid } from 'nanoid';
 
@@ -16,7 +16,7 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
   //Как хранить дату?
   const [inputValue, setInputValue] = useState('');
   const [textAreaValue, setTextAreaValue] = useState('');
-  const [selectValue, setSelectValue] = useState('high');
+  const [selectValue, setSelectValue] = useState<TPriority>('high');
   const [dateOfEnd, setDateOfEnd] = useState('');
 
   const onChangeInput = (value: string) => {
@@ -25,7 +25,7 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
   const onChangeTextArea = (value: string) => {
     setTextAreaValue(value);
   };
-  const onChangeSelectValue = (value: string) => {
+  const onChangeSelectValue = (value: TPriority) => {
     setSelectValue(value);
   };
   const onChangeDateOfEnd = (value: string) => {
@@ -34,7 +34,7 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleSetTask({
+    handleSetTask?.({
       status: status,
       title: inputValue,
       description: textAreaValue,
@@ -54,7 +54,7 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
             <h3>{status}</h3>
             <Input type="text" name="title of task" id="title" placeholder="Название задачи" value={inputValue}
                    onChange={onChangeInput} />
-            <TextArea id="content" placeholder="Описание..." rows={5} value={textAreaValue}
+            <Textarea id="content" placeholder="Описание..." rows={5} value={textAreaValue}
                       onChange={onChangeTextArea} />
             <div className="content-details">
               <div className="content-details__group">

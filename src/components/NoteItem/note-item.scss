@@ -1,4 +1,4 @@
-@use '../../../styles/globals' as global;
+@use '../../styles/globals' as global;
 
 .note-list {
   display: flex;
@@ -51,12 +51,23 @@
   font-size: 14px;
 }
 
-.note-list_container-checkbox {
+.note-list_container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   font-size: global.$font-size-s;
+  cursor: pointer;
+}
+
+.note-list_container-checkbox {
+  cursor: pointer;
+
+}
+
+.note-list_container-svg {
+  fill: white;
+  cursor: pointer;
 }
 
 

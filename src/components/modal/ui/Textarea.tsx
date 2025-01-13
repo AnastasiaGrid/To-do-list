@@ -7,7 +7,7 @@ interface ITextAreaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement
 }
 
 
-export const TextArea = ({ value, textAreaRef, onChange, ...props }: ITextAreaProps) => {
+export const Textarea = ({ value, textAreaRef, onChange, ...props }: ITextAreaProps) => {
   return (
     <label>
       <textarea ref={textAreaRef} value={value} {...props} onChange={(e) => onChange?.(e?.target?.value)} />

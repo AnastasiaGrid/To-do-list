@@ -1,37 +1,52 @@
 import './app.scss';
-import { Todo } from '../status-block/Todo.tsx';
-import { InProgress } from '../status-block/InProgress.tsx';
-import { Done } from '../status-block/Done.tsx';
+import { Todo } from '../status-blocks/Todo.tsx';
+import { InProgress } from '../status-blocks/InProgress.tsx';
+import { Done } from '../status-blocks/Done.tsx';
 import { useState } from 'react';
 import { ITaskItem } from '../../utils/types.ts';
-import { setInitialLocalStorage, setLocalStorage } from '../../utils/utils.tsx';
+import { getFilteredTaskByStatus, setInitialLocalStorage, setLocalStorage } from '../../utils/utils.tsx';
 
 export function App() {
-  const [tasksToDo, setTasksToDo] = useState<ITaskItem[]>(setInitialLocalStorage('todoTasks'));
-  const [tasksInProg, setTasksInProg] = useState<ITaskItem[]>(setInitialLocalStorage('inProgTasks'));
-  const [tasksDone, setTasksDone] = useState<ITaskItem[]>(setInitialLocalStorage('doneTasks'));
+  const [tasks, setTasks] = useState<ITaskItem[]>(setInitialLocalStorage());
 
-  const handleSetTaskToDo = (task: ITaskItem) => {
-    setTasksToDo(prev => {
+  const tasksToDo = getFilteredTaskByStatus(tasks, 'to do');
+  const tasksInProg = getFilteredTaskByStatus(tasks, 'in progress');
+  const tasksDone = getFilteredTaskByStatus(tasks, 'done');
+
+  const handleSetTask = (task: ITaskItem) => {
+    setTasks(prev => {
       const newTasks = [...prev, task];
-      setLocalStorage('todoTasks', newTasks);
+      setLocalStorage(newTasks);
       return newTasks;
     });
   };
 
-  const handleSetTaskInProg = (task: ITaskItem) => {
-    setTasksInProg(prev => {
-      const newTasks = [...prev, task];
-      setLocalStorage('inProgTasks', newTasks);
-      return newTasks;
+  const handleClickCheckbox = (taskId: string) => {
+    const newArr = tasks.map(item => {
+      if (item.id === taskId) {
+        item.status = 'done';
+      }
+      return item;
     });
+    setTasks(() => {
+      setLocalStorage(newArr);
+      return newArr;
+    });
+    //@TODO добавить модалку с вопросом "Отметить как выполненное?" и добавить галочку больше не спрашивать
   };
+
+
+  const handleDeleteClick = () => {
+
+  };
+
 
   return (
     <>
-      <Todo tasks={tasksToDo} handleSetTask={handleSetTaskToDo} />
-      <InProgress tasks={tasksInProg} handleSetTask={handleSetTaskInProg} />
-      <Done tasks={tasksDone} />
+      <Todo tasks={tasksToDo} handleSetTask={handleSetTask} handleClickCheckbox={handleClickCheckbox}
+            handleDeleteClick={handleDeleteClick} />
+      <InProgress tasks={tasksInProg} handleSetTask={handleSetTask} handleClickCheckbox={handleClickCheckbox} />
+      <Done tasks={tasksDone} handleClickCheckbox={handleClickCheckbox} />
     </>
   );
 }

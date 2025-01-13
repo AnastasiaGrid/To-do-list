@@ -1,4 +1,4 @@
-import { ITaskItem, TPriority, TStorage } from './types.ts';
+import { ITaskItem, TPriority, TStatus } from './types.ts';
 
 //работа с датами
 export function setToday(): string {
@@ -18,48 +18,54 @@ export function toFormatDate(date: string): string {
 //Работа с локал сторадж
 
 //Устанавливает начальное значение для стейта в компоненте Section
-export function setInitialLocalStorage(storage: TStorage) {
-  return getTasksFromLocalStorage(storage) || [];
+export function setInitialLocalStorage() {
+  return getTasksFromLocalStorage() || [];
 }
 
 //Записывает в локал
-export function setLocalStorage(storage: TStorage, data: ITaskItem[]) {
-  localStorage.setItem(storage, JSON.stringify(data));
+export function setLocalStorage(data: ITaskItem[]) {
+  localStorage.setItem('tasks', JSON.stringify(data));
 }
 
 //Удаляет из локал
-export function deleteTask(task: ITaskItem) {
-  //нужно, тк название стораджа отличается от статуса(пробелы)
-  // let status: TStorage;
-  // task.status === 'to do' ? status = 'todoTasks' : status = 'inProgTasks';
-  // const tasksAll = getTasksFromLocalStorage(status);
-  // const tasksInDone: ITaskItem[] = getTasksFromLocalStorage('doneTasks');
-  // const tasksNew: ITaskItem[] = getTasksFromLocalStorage(status);
-  //
-  // for (let i = 0; i < tasksAll.length; i++) {
-  //   if (tasksAll[i].id === task.id) {
-  //     tasksAll[i].status = 'done';
-  //     tasksInDone.push(tasksAll[i]);
-  //   } else {
-  //     tasksNew.push(tasksAll[i]);
-  //   }
-  // }
-  // setLocalStorage('doneTasks', tasksInDone);
-  // setLocalStorage(status, tasksNew);
-}
+// export function deleteTask(taskId: string) {
+//
+//
+//   //нужно, тк название стораджа отличается от статуса(пробелы)
+//   // let status: TStorage;
+//   // task.status === 'to do' ? status = 'todoTasks' : status = 'inProgTasks';
+//   // const tasksAll = getTasksFromLocalStorage(status);
+//   // const tasksInDone: ITaskItem[] = getTasksFromLocalStorage('doneTasks');
+//   // const tasksNew: ITaskItem[] = getTasksFromLocalStorage(status);
+//   //
+//   // for (let i = 0; i < tasksAll.length; i++) {
+//   //   if (tasksAll[i].id === task.id) {
+//   //     tasksAll[i].status = 'done';
+//   //     tasksInDone.push(tasksAll[i]);
+//   //   } else {
+//   //     tasksNew.push(tasksAll[i]);
+//   //   }
+//   // }
+//   // setLocalStorage('doneTasks', tasksInDone);
+//   // setLocalStorage(status, tasksNew);
+// }
 
 // Возвращает все таски
-export function getTasksFromLocalStorage(storage: TStorage): ITaskItem[] {
+export function getTasksFromLocalStorage(): ITaskItem[] {
   try {
-    return JSON.parse(localStorage.getItem(storage));
+    return JSON.parse(localStorage.getItem('tasks'));
   } catch {
     return [];
   }
 }
 
+//Возвращает отфильтрованные таски по статусу для вставки компоненты для отрисовки
+export function getFilteredTaskByStatus(tasks: ITaskItem[], status?: TStatus) {
+  return tasks.filter(item => item.status === status);
+}
 
 //Возвращает отфильтрованные таски по приоритету для вставки UI
-export function getFilteredTask(tasks: ITaskItem[], priority?: TPriority) {
+export function getFilteredTaskByPriority(tasks: ITaskItem[], priority?: TPriority) {
   const filteredTasksByPriority = tasks.filter(item => item.priority === priority);
   return filteredTasksByPriority.length ? filteredTasksByPriority : null;
 }

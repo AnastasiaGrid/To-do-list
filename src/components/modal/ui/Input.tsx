@@ -3,7 +3,7 @@ import { ForwardedRef, InputHTMLAttributes } from 'react';
 interface IInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   inputRef?: ForwardedRef<HTMLInputElement>;
   error?: string;
-  onChange?: (value: string | boolean) => void;
+  onChange?: (value: string) => void;
 }
 
 export const Input = ({ inputRef, onChange, ...props }: IInputProps) => {

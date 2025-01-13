@@ -11,7 +11,7 @@ export interface ITaskItem {
 export interface IModalProps {
   status: TStatus;
   onClose: () => void;
-  handleSetTask: (task: ITaskItem) => void;
+  handleSetTask?: (task: ITaskItem) => void;
 }
 
 export interface IModalUIProps extends IModalProps {
@@ -34,5 +34,7 @@ export type TStorage = 'todoTasks' | 'inProgTasks' | 'doneTasks'
 
 export interface ISectionStatusProps {
   tasks: ITaskItem[];
-  handleSetTask: (task: ITaskItem) => void;
+  handleSetTask?: (task: ITaskItem) => void;
+  handleClickCheckbox: (taskId: string) => void;
+  handleDeleteClick: () => void;
 }
