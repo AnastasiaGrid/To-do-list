@@ -5,7 +5,7 @@ import { PriorityBlock } from '../PriorityBlock/PriorityBlock.tsx';
 import { Modal } from '../modal/Modal.tsx';
 import { ISectionStatusProps } from '../../utils/types.ts';
 
-export function InProgress({ tasks, handleSetTask, handleClickCheckbox }: ISectionStatusProps) {
+export function InProgress({ tasks, handleSetTask, handleClickCheckbox, handleDeleteClick }: ISectionStatusProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleCrossClick = () => {
@@ -21,11 +21,11 @@ export function InProgress({ tasks, handleSetTask, handleClickCheckbox }: ISecti
         <div className="add-cross" onClick={handleCrossClick}></div>
         <h1>In Progress</h1>
         <PriorityBlock status={'in progress'} priority={'high'} tasks={getFilteredTaskByPriority(tasks, 'high')}
-                       handleClickCheckbox={handleClickCheckbox} />
+                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
         <PriorityBlock status={'in progress'} priority={'medium'} tasks={getFilteredTaskByPriority(tasks, 'medium')}
-                       handleClickCheckbox={handleClickCheckbox} />
+                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
         <PriorityBlock status={'in progress'} priority={'low'} tasks={getFilteredTaskByPriority(tasks, 'low')}
-                       handleClickCheckbox={handleClickCheckbox} />
+                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
       </div>
       {modalVisible && (<Modal status={'in progress'} onClose={handleClose} handleSetTask={handleSetTask} />)}
     </>

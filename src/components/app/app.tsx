@@ -36,8 +36,12 @@ export function App() {
   };
 
 
-  const handleDeleteClick = () => {
-
+  const handleDeleteClick = (taskID: string) => {
+    const newArr = tasks.filter(item => item.id !== taskID);
+    setTasks(() => {
+      setLocalStorage(newArr);
+      return newArr;
+    });
   };
 
 
@@ -45,8 +49,9 @@ export function App() {
     <>
       <Todo tasks={tasksToDo} handleSetTask={handleSetTask} handleClickCheckbox={handleClickCheckbox}
             handleDeleteClick={handleDeleteClick} />
-      <InProgress tasks={tasksInProg} handleSetTask={handleSetTask} handleClickCheckbox={handleClickCheckbox} />
-      <Done tasks={tasksDone} handleClickCheckbox={handleClickCheckbox} />
+      <InProgress tasks={tasksInProg} handleSetTask={handleSetTask} handleClickCheckbox={handleClickCheckbox}
+                  handleDeleteClick={handleDeleteClick} />
+      <Done tasks={tasksDone} handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
     </>
   );
 }

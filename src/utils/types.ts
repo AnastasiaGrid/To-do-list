@@ -35,6 +35,6 @@ export type TStorage = 'todoTasks' | 'inProgTasks' | 'doneTasks'
 export interface ISectionStatusProps {
   tasks: ITaskItem[];
   handleSetTask?: (task: ITaskItem) => void;
-  handleClickCheckbox: (taskId: string) => void;
-  handleDeleteClick: () => void;
+  handleClickCheckbox: (taskID: string) => void;
+  handleDeleteClick: (taskID: string) => void;
 }
