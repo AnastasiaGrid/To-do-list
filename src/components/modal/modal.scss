@@ -131,6 +131,10 @@
     background-color: global.$main-color;
     color: global.$font-color;
   }
+
+  button:disabled {
+    opacity: 0.3;
+  }
 }
 
 .content-details {

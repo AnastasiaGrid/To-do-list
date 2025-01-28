@@ -19,7 +19,7 @@ export function InProgress({ tasks, handleSetTask, handleClickCheckbox, handleDe
     <>
       <div className={`container`}>
         <div className="add-cross" onClick={handleCrossClick}></div>
-        <h1>In Progress</h1>
+        <h1>In progress</h1>
         <PriorityBlock status={'in progress'} priority={'high'} tasks={getFilteredTaskByPriority(tasks, 'high')}
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
         <PriorityBlock status={'in progress'} priority={'medium'} tasks={getFilteredTaskByPriority(tasks, 'medium')}

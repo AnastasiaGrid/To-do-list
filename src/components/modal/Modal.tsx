@@ -11,7 +11,7 @@ import { nanoid } from 'nanoid';
 
 const modalRoot = document.getElementById('modal');
 
-const validationValues: Partial<Record<keyof ITaskItem, (value: string, allValues: Partial<ITaskItem>) => string | null | undefined>> = {
+const validationValues: Partial<Record<keyof ITaskItem, (value: string, allValues: ITaskItem) => string | null | undefined>> = {
   title: validationTitle,
   dateOfEnd: validationDateOfEnd
 };
@@ -30,33 +30,50 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
   };
 
   const [form, setForm] = useState<ITaskItem>(initialValue);
-  const [error, setError] = useState<Partial<ITaskItem> | null>(null);
+  const [error, setError] = useState<Partial<Record<keyof ITaskItem, string | null | undefined> | null>>(null);
 
-//на каждое изменение инпутов запускается валидация и запись в состояние form
+  //на каждое изменение инпутов запускается валидация и запись в состояние form
   const handleOnChange = (formKey: keyof ITaskItem) => {
     return function(value: string) {
       //переменная нужна, чтобы отправить в ф-цию валидации все значения
-      let allValues: Partial<ITaskItem> = {};
+      // let allValues: ITaskItem = {};
       setForm((previousValue) => {
-        const newFormData = { ...previousValue, [formKey]: value };
-        allValues = { ...newFormData };
-        return newFormData;
+        // const newFormData = { ...previousValue, [formKey]: value };
+        // allValues = { ...newFormData };
+        return { ...previousValue, [formKey]: value };
       });
 
       const validateFn = validationValues[formKey];
       setError(prevErrors => ({
         ...prevErrors,
-        [formKey]: validateFn?.(value, allValues)
+        [formKey]: validateFn?.(value, form)
       }));
+
     };
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const submitErrors: typeof error = {};
+
+    //вынести в функцию в утилс
+    (Object.keys(validationValues) as Array<keyof ITaskItem>).forEach((key: keyof ITaskItem) => {
+      const validateFn = validationValues[key];
+      submitErrors[key] = validateFn?.(form[key], form);
+    });
+    // из-за батчинга все сотояния отрабатывают за раз и error не акутальный для этого и переменная submitError
+    if (Object.values(submitErrors).some((item) => item !== null)) {
+      setError(submitErrors);
+      return;
+    }
+
     handleSetTask?.(form);
-    // alert('задача создана');
     onClose();
+    // alert('задача создана');
   };
+
+  const isValid = error && Object.values(error).some((item) => item !== null);
+
   return ReactDOM.createPortal((
       <>
         <form className="modal" noValidate onSubmit={onSubmit}>
@@ -82,7 +99,7 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
                        onChange={handleOnChange('dateOfEnd')} error={error?.dateOfEnd} />
               </div>
             </div>
-            <button type="submit">Сохранить изменения</button>
+            <button type="submit" disabled={!!isValid}>Сохранить изменения</button>
           </div>
         </form>
         <ModalOverlay onClick={onClose} />;
