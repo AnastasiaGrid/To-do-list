@@ -8,7 +8,7 @@ import { Modal } from '../modal/Modal.tsx';
 export function Todo({ tasks, handleSetTask, handleClickCheckbox, handleDeleteClick }: ISectionStatusProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleCrossClick = () => {
+  const handleAddClick = () => {
     setModalVisible(true);
   };
   const handleClose = () => {
@@ -18,7 +18,7 @@ export function Todo({ tasks, handleSetTask, handleClickCheckbox, handleDeleteCl
   return (
     <>
       <div className={`container`}>
-        <div className="add-cross" onClick={handleCrossClick}></div>
+        <div className="add-cross" onClick={handleAddClick}></div>
         <h1>To do</h1>
         <PriorityBlock status={'to do'} priority={'high'} tasks={getFilteredTaskByPriority(tasks, 'high')}
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />

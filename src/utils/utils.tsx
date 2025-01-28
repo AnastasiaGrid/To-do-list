@@ -10,8 +10,8 @@ export function setToday(): string {
 }
 
 export function toFormatDate(date: string): string {
-  const arrDate = date.split('-');
-  return `${arrDate[2]}.${arrDate[1]}.${arrDate[0]}`;
+  // const arrDate = date.split('-').reverse().join('.');
+  return date.split('-').reverse().join('.');
 }
 
 
@@ -26,29 +26,6 @@ export function setInitialLocalStorage() {
 export function setLocalStorage(data: ITaskItem[]) {
   localStorage.setItem('tasks', JSON.stringify(data));
 }
-
-//Удаляет из локал
-// export function deleteTask(taskId: string) {
-//
-//
-//   //нужно, тк название стораджа отличается от статуса(пробелы)
-//   // let status: TStorage;
-//   // task.status === 'to do' ? status = 'todoTasks' : status = 'inProgTasks';
-//   // const tasksAll = getTasksFromLocalStorage(status);
-//   // const tasksInDone: ITaskItem[] = getTasksFromLocalStorage('doneTasks');
-//   // const tasksNew: ITaskItem[] = getTasksFromLocalStorage(status);
-//   //
-//   // for (let i = 0; i < tasksAll.length; i++) {
-//   //   if (tasksAll[i].id === task.id) {
-//   //     tasksAll[i].status = 'done';
-//   //     tasksInDone.push(tasksAll[i]);
-//   //   } else {
-//   //     tasksNew.push(tasksAll[i]);
-//   //   }
-//   // }
-//   // setLocalStorage('doneTasks', tasksInDone);
-//   // setLocalStorage(status, tasksNew);
-// }
 
 // Возвращает все таски
 export function getTasksFromLocalStorage(): ITaskItem[] {
@@ -70,19 +47,19 @@ export function getFilteredTaskByPriority(tasks: ITaskItem[], priority?: TPriori
   return filteredTasksByPriority.length ? filteredTasksByPriority : null;
 }
 
-// export function getToDoTasksFromLocalStorage(): ITaskItem[] {
-//   return getAllTasksFromLocalStorage().filter((item: ITaskItem) => item.section === 'to do');
-// }
-//
-// export function getInProgTasksFromLocalStorage(): ITaskItem[] {
-//   return getAllTasksFromLocalStorage().filter((item: ITaskItem) => item.section === 'in progress');
-// }
-//
-// export function getDoneTasksFromLocalStorage(): ITaskItem[] {
-//   return getAllTasksFromLocalStorage().filter((item: ITaskItem) => item.section === 'done');
-// }
+//  ВАЛИДАЦИЯ
+export const validationTitle = (inputValue: string) => {
+  return inputValue.length > 0 ? null : 'Не оставляй поле пустым';
+};
 
-
-
-
-
+export const validationDateOfEnd = (dateOfEnd: string, allValues: Partial<ITaskItem>) => {
+  if (allValues.dateOfStart) {
+    const endArr = dateOfEnd.split('-');
+    const start = allValues.dateOfStart.split('.').reverse().join('.');
+    const yearOfEnd = Number(endArr[0]);
+    if (yearOfEnd < 2025 || yearOfEnd > 2030) {
+      return 'Некорректный год';
+    }
+    return new Date(endArr.join('.')) < new Date(start) ? 'Уже просрочено' : null;
+  }
+};

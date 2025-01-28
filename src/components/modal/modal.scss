@@ -7,14 +7,14 @@
   border-radius: 2px;
   padding: 10px;
   box-sizing: border-box;
-  color: global.$font-color;
+  color: global.$high-priority-color;
   font-family: Inter, sans-serif;
   font-size: global.$font-size-s;
 }
 
 .modal {
   width: 500px;
-  height: 330px;
+  height: 400px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -31,7 +31,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 //.content-title {
@@ -75,7 +75,7 @@
   flex-direction: column;
   align-items: start;
   justify-content: space-around;
-  gap: 10px;
+  gap: 20px;
   width: 100%;
   box-sizing: border-box;
   padding: 15px 20px;
@@ -84,19 +84,33 @@
 .content {
   h3 {
     color: global.$main-color;
-    font-size: global.$font-size-l;
+    font-size: global.$font-size-xl;
   }
 
   label {
     width: 100%;
+    position: relative;
   }
 
   input {
     @include modal-el-edit;
+    border: 2px solid transparent;
+  }
+
+  .input_error {
+    border: 2px solid global.$error-color;
+  }
+
+  .error_span {
+    color: global.$error-color;
+    font-size: global.$font-size-xs;
+    position: absolute;
+    bottom: -15px;
+    left: 5px;
   }
 
   input::placeholder {
-    color: global.$font-color;
+    color: global.$high-priority-color;
   }
 
   textarea {
@@ -106,7 +120,7 @@
   }
 
   textarea::placeholder {
-    color: global.$font-color;
+    color: global.$main-color;
     font-family: Inter, sans-serif;
 
   }
@@ -115,6 +129,7 @@
     @include modal-el-edit;
     cursor: pointer;
     background-color: global.$main-color;
+    color: global.$font-color;
   }
 }
 
@@ -132,20 +147,48 @@
     color: global.$main-color;
   }
 
-  span {
+  .content-details__group-date {
     display: block;
-    @include modal-el-edit
+    @include modal-el-edit;
+    border: 2px solid transparent;
   }
 
   span p {
-    color: global.$font-color;
+    color: global.$main-color;
   }
 
   select {
-    @include modal-el-edit
+    @include modal-el-edit;
+    border: 2px solid transparent;
+  }
+
+  label {
+    position: relative;
   }
 
   input {
-    color: global.$font-color;
+    color: global.$main-color;
   }
+
+  .error_span {
+    bottom: -28px;
+    left: 5px;
+  }
+
+}
+
+.error_span {
+  color: global.$error-color;
+  font-size: global.$font-size-xs;
+  position: absolute;
+  bottom: -15px;
+  left: 5px;
+}
+
+input, textarea:focus {
+  outline: none;
+}
+
+input, textarea :focus-visible {
+  outline: none;
 }

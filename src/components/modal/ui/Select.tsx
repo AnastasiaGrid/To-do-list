@@ -3,7 +3,7 @@ import { TPriority } from '../../../utils/types.ts';
 
 
 interface ISelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'onChange'> {
-  value: TPriority;
+  value?: TPriority;
   onChange?: (value: TPriority) => void;
 }
 

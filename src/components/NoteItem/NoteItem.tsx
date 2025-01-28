@@ -3,6 +3,7 @@ import './note-item.scss';
 import '../PriorityBlock/priority-block.scss';
 import { ITaskItem } from '../../utils/types.ts';
 import { Checkbox } from '../modal/ui/Checkbox.tsx';
+import { toFormatDate } from '../../utils/utils.tsx';
 
 
 interface INoteItemProps {
@@ -28,7 +29,9 @@ export function NoteItem({ task, handleClickCheckbox, handleDeleteClick }: INote
         <div className={`note-list-item ${isDoneStyle}`}>
           <div className="note-list-text">
             <p className="note-list-title">{task.title}</p>
-            <p className="note-list-date">до {task.dateOfEnd}</p>
+            {task.dateOfEnd ?
+              <p className="note-list-date">до {toFormatDate(task.dateOfEnd)}</p> : null
+            }
           </div>
           <div className="note-list_container">
             <label form="in done"></label>
