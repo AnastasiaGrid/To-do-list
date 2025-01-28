@@ -52,7 +52,7 @@ export const validationTitle = (inputValue: string) => {
   return inputValue.length > 0 ? null : 'Не оставляй поле пустым';
 };
 
-export const validationDateOfEnd = (dateOfEnd: string, allValues: Partial<ITaskItem>) => {
+export const validationDateOfEnd = (dateOfEnd: string, allValues: Partial<ITaskItem>): string | null | undefined => {
   if (allValues.dateOfStart) {
     const endArr = dateOfEnd.split('-');
     const start = allValues.dateOfStart.split('.').reverse().join('.');

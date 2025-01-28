@@ -11,7 +11,7 @@ import { nanoid } from 'nanoid';
 
 const modalRoot = document.getElementById('modal');
 
-const validationValues: Partial<Record<keyof ITaskItem, (value: string, allValues: Partial<ITaskItem>) => string | null>> = {
+const validationValues: Partial<Record<keyof ITaskItem, (value: string, allValues: Partial<ITaskItem>) => string | null | undefined>> = {
   title: validationTitle,
   dateOfEnd: validationDateOfEnd
 };
