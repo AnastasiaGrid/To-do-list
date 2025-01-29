@@ -38,3 +38,5 @@ export interface ISectionStatusProps {
   handleClickCheckbox: (taskID: string) => void;
   handleDeleteClick: (taskID: string) => void;
 }
+
+export type TErrors = Partial<Record<keyof ITaskItem, string | null | undefined>>

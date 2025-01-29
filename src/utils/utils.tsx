@@ -1,4 +1,4 @@
-import { ITaskItem, TPriority, TStatus } from './types.ts';
+import { ITaskItem, TErrors, TPriority, TStatus } from './types.ts';
 
 //работа с датами
 export function setToday(): string {
@@ -51,7 +51,7 @@ export const validationTitle = (inputValue: string) => {
   return inputValue.length > 0 ? null : 'Не оставляй поле пустым';
 };
 
-export const validationDateOfEnd = (dateOfEnd: string, allValues: ITaskItem): string | null | undefined => {
+export const validationDateOfEnd = (dateOfEnd: string, allValues: Partial<ITaskItem>): string | null | undefined => {
   if (allValues.dateOfStart) {
     const endArr = dateOfEnd.split('-');
     const start = allValues.dateOfStart.split('.').reverse().join('.');
@@ -64,4 +64,18 @@ export const validationDateOfEnd = (dateOfEnd: string, allValues: ITaskItem): st
     }
     return new Date(endArr.join('.')) < new Date(start) ? 'Уже просрочено' : null;
   }
+};
+
+export const validationValues: Partial<Record<keyof ITaskItem, (value: string, allValues: Partial<ITaskItem>) => string | null | undefined>> = {
+  title: validationTitle,
+  dateOfEnd: validationDateOfEnd
+};
+
+export const validationOnSubmit = (form: ITaskItem): TErrors => {
+  const submitErrors: TErrors = {};
+  (Object.keys(validationValues) as Array<keyof ITaskItem>).forEach((key: keyof ITaskItem) => {
+    const validateFn = validationValues[key];
+    submitErrors[key] = validateFn?.(form[key], form);
+  });
+  return submitErrors;
 };

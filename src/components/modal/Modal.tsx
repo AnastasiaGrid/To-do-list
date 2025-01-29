@@ -1,8 +1,8 @@
 import { FormEvent, ReactElement, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './modal.scss';
-import { setToday, validationDateOfEnd, validationTitle } from '../../utils/utils.tsx';
-import { IModalProps, ITaskItem } from '../../utils/types.ts';
+import { setToday, validationOnSubmit, validationValues } from '../../utils/utils.tsx';
+import { IModalProps, ITaskItem, TErrors } from '../../utils/types.ts';
 import { ModalOverlay } from './ModalOverlay.tsx';
 import { Input } from './ui/Input.tsx';
 import { Textarea } from './ui/Textarea.tsx';
@@ -11,14 +11,8 @@ import { nanoid } from 'nanoid';
 
 const modalRoot = document.getElementById('modal');
 
-const validationValues: Partial<Record<keyof ITaskItem, (value: string, allValues: ITaskItem) => string | null | undefined>> = {
-  title: validationTitle,
-  dateOfEnd: validationDateOfEnd
-};
-
 export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactElement => {
   const date = setToday();
-  //Как хранить дату?
   const initialValue: ITaskItem = {
     status: status,
     title: '',
@@ -30,49 +24,37 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
   };
 
   const [form, setForm] = useState<ITaskItem>(initialValue);
-  const [error, setError] = useState<Partial<Record<keyof ITaskItem, string | null | undefined> | null>>(null);
+  const [errors, setErrors] = useState<TErrors | null>(null);
 
   //на каждое изменение инпутов запускается валидация и запись в состояние form
   const handleOnChange = (formKey: keyof ITaskItem) => {
     return function(value: string) {
-      //переменная нужна, чтобы отправить в ф-цию валидации все значения
-      // let allValues: ITaskItem = {};
       setForm((previousValue) => {
-        // const newFormData = { ...previousValue, [formKey]: value };
-        // allValues = { ...newFormData };
         return { ...previousValue, [formKey]: value };
       });
 
       const validateFn = validationValues[formKey];
-      setError(prevErrors => ({
+      setErrors(prevErrors => ({
         ...prevErrors,
         [formKey]: validateFn?.(value, form)
       }));
-
     };
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const submitErrors: typeof error = {};
-
-    //TODO вынести в функцию в утилс
-    (Object.keys(validationValues) as Array<keyof ITaskItem>).forEach((key: keyof ITaskItem) => {
-      const validateFn = validationValues[key];
-      submitErrors[key] = validateFn?.(form[key], form);
-    });
-    // из-за батчинга все сотояния отрабатывают за раз и error не акутальный для этого и переменная submitError
+    // из-за батчинга все соcтояния отрабатывают за раз и errors не акутальный для этого и переменная submitError (ее расчет отдельно в utils)
+    const submitErrors: TErrors = validationOnSubmit(form);
     if (Object.values(submitErrors).some((item) => item !== null)) {
-      setError(submitErrors);
+      setErrors(submitErrors);
       return;
     }
 
     handleSetTask?.(form);
     onClose();
-    // alert('задача создана');
   };
 
-  const isValid = error && Object.values(error).some((item) => item !== null);
+  const isValid = errors && Object.values(errors).some((item) => item !== null && item !== undefined);
 
   return ReactDOM.createPortal((
       <>
@@ -80,7 +62,7 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
           <div className="close-cross" onClick={onClose}></div>
           <div className="content">
             <h3>{status}</h3>
-            <Input type="text" name="title of task" id="title" placeholder="Название задачи" error={error?.title}
+            <Input type="text" name="title of task" id="title" placeholder="Название задачи" error={errors?.title}
                    onChange={handleOnChange('title')} />
             <Textarea id="content" placeholder="Описание..." rows={5}
                       onChange={handleOnChange('description')} />
@@ -96,7 +78,7 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
               <div className="content-details__group">
                 <p>Выполнить до</p>
                 <Input type="date" name="date of end" id="dateOfEnd"
-                       onChange={handleOnChange('dateOfEnd')} error={error?.dateOfEnd} />
+                       onChange={handleOnChange('dateOfEnd')} error={errors?.dateOfEnd} />
               </div>
             </div>
             <button type="submit" disabled={!!isValid}>Сохранить изменения</button>
