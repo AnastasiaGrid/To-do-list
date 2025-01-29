@@ -56,7 +56,7 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
     e.preventDefault();
     const submitErrors: typeof error = {};
 
-    //вынести в функцию в утилс
+    //TODO вынести в функцию в утилс
     (Object.keys(validationValues) as Array<keyof ITaskItem>).forEach((key: keyof ITaskItem) => {
       const validateFn = validationValues[key];
       submitErrors[key] = validateFn?.(form[key], form);

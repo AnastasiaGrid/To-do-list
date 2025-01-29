@@ -51,6 +51,10 @@
   font-size: 14px;
 }
 
+.note-list-date_deadline {
+  color: global.$error-color;
+}
+
 .note-list_container {
   display: flex;
   flex-direction: row;

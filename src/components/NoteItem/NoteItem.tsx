@@ -3,7 +3,7 @@ import './note-item.scss';
 import '../PriorityBlock/priority-block.scss';
 import { ITaskItem } from '../../utils/types.ts';
 import { Checkbox } from '../modal/ui/Checkbox.tsx';
-import { toFormatDate } from '../../utils/utils.tsx';
+import { toFormatDate, validationDateOfEnd } from '../../utils/utils.tsx';
 
 
 interface INoteItemProps {
@@ -15,6 +15,7 @@ interface INoteItemProps {
 export function NoteItem({ task, handleClickCheckbox, handleDeleteClick }: INoteItemProps): ReactElement {
   const isDoneStyle = task.status !== 'done' ? task.priority : 'low';
   const isDoneChecked = task.status === 'done';
+  const deadline = validationDateOfEnd(task.dateOfEnd, task) ? 'note-list-date_deadline' : null;
 
   // @TODO передаю два раза таскид в функию удаления таски и переноса в дан  может можно просто пережданосить ид?
 
@@ -30,7 +31,7 @@ export function NoteItem({ task, handleClickCheckbox, handleDeleteClick }: INote
           <div className="note-list-text">
             <p className="note-list-title">{task.title}</p>
             {task.dateOfEnd ?
-              <p className="note-list-date">до {toFormatDate(task.dateOfEnd)}</p> : null
+              <p className={`note-list-date ${deadline}`}>до {toFormatDate(task.dateOfEnd)}</p> : null
             }
           </div>
           <div className="note-list_container">
