@@ -56,6 +56,9 @@ export const validationDateOfEnd = (dateOfEnd: string, allValues: ITaskItem): st
     const endArr = dateOfEnd.split('-');
     const start = allValues.dateOfStart.split('.').reverse().join('.');
     const yearOfEnd = Number(endArr[0]);
+    if (allValues.dateOfEnd === '') {
+      return null;
+    }
     if (yearOfEnd < 2025 || yearOfEnd > 2030) {
       return 'Некорректный год';
     }
