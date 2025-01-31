@@ -29,7 +29,7 @@ export function setLocalStorage(data: ITaskItem[]) {
 // Возвращает все таски
 export function getTasksFromLocalStorage(): ITaskItem[] {
   try {
-    return JSON.parse(localStorage.getItem('tasks'));
+    return JSON.parse(localStorage.getItem('tasks') || '');
   } catch {
     return [];
   }

@@ -2,13 +2,19 @@ import './status-blocks.scss';
 import { PriorityBlock } from '../PriorityBlock/PriorityBlock.tsx';
 import { ISectionStatusProps } from '../../utils/types.ts';
 
-export function Done({ tasks, handleClickCheckbox, handleDeleteClick }: ISectionStatusProps) {
+export function Done({
+                       tasks,
+                       handleClickCheckbox,
+                       handleDeleteClick,
+                       DnDMoveTask
+                     }: Omit<ISectionStatusProps, 'status'>) {
   return (
     <>
       <div className={`container`}>
         <h1>Done</h1>
         <PriorityBlock status={'done'} priority={'low'} tasks={tasks}
-                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
+                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
+                       DnDMoveTask={DnDMoveTask} />
       </div>
     </>
   );

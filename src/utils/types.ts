@@ -30,13 +30,26 @@ export interface INoteItemUI {
   status: TStatus,
 }
 
-export type TStorage = 'todoTasks' | 'inProgTasks' | 'doneTasks'
-
 export interface ISectionStatusProps {
   tasks: ITaskItem[];
+  status: TStatus;
   handleSetTask?: (task: ITaskItem) => void;
   handleClickCheckbox: (taskID: string) => void;
   handleDeleteClick: (taskID: string) => void;
+  DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
 }
 
 export type TErrors = Partial<Record<keyof ITaskItem, string | null | undefined>>
+
+export interface IDragEl {
+  id: string,
+  status: TStatus,
+  priority: TPriority,
+  index: number
+}
+
+export interface IDropResult {
+  dropEffect: string;
+  name: TStatus;
+  priority: TPriority;
+}

@@ -1,33 +1,66 @@
 import { ReactElement } from 'react';
 import './note-item.scss';
 import '../PriorityBlock/priority-block.scss';
-import { ITaskItem } from '../../utils/types.ts';
+import { IDragEl, IDropResult, ITaskItem, TPriority, TStatus } from '../../utils/types.ts';
 import { Checkbox } from '../modal/ui/Checkbox.tsx';
 import { toFormatDate, validationDateOfEnd } from '../../utils/utils.tsx';
+import { useDrag } from 'react-dnd';
 
 
 interface INoteItemProps {
   task: ITaskItem;
+  index: number;
   handleClickCheckbox: (taskID: string) => void;
   handleDeleteClick: (taskID: string) => void;
+  DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
 }
 
-export function NoteItem({ task, handleClickCheckbox, handleDeleteClick }: INoteItemProps): ReactElement {
+export function NoteItem({
+                           task,
+                           index,
+                           handleClickCheckbox,
+                           handleDeleteClick,
+                           DnDMoveTask
+                         }: INoteItemProps): ReactElement {
   const isDoneStyle = task.status !== 'done' ? task.priority : 'low';
   const isDoneChecked = task.status === 'done';
   const deadline = validationDateOfEnd(task.dateOfEnd, task) ? 'note-list-date_deadline' : null;
 
   // @TODO передаю два раза таскид в функию удаления таски и переноса в дан  может можно просто пережданосить ид?
 
+  // const taskRef = useRef<HTMLElement>(null);
+  const id = task.id;
+  const status = task.status;
+  const priority = task.priority;
+  const [{ isDragging }, dragRef] = useDrag({
+    type: 'task',
+    item: (): IDragEl => {
+      return { id, status, priority, index };
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging()
+    }),
+    end(item: IDragEl, monitor) {
+      const dropResult = monitor.getDropResult() as IDropResult;
+      if (dropResult === null) {
+        alert('Перемещение вне зоны задач : переносите задачу только туда, где есть список');
+        DnDMoveTask(item.priority, item.status, item.id);
+      } else {
+        DnDMoveTask(dropResult.priority, dropResult.name, item.id);
+      }
+    }
+  });
+  const opacity = isDragging ? 'opacity' : null;
+
   return (
     <>
       <li className="note-list">
-        <div className="drag-and-drop-dots">
+        <div className="drag-and-drop-dots" ref={dragRef}>
           <span className={`dot ${isDoneStyle}`}></span>
           <span className={`dot ${isDoneStyle}`}></span>
           <span className={`dot ${isDoneStyle}`}></span>
         </div>
-        <div className={`note-list-item ${isDoneStyle}`}>
+        <div className={`note-list-item ${isDoneStyle} ${opacity}`} ref={dragRef}>
           <div className="note-list-text">
             <p className="note-list-title">{task.title}</p>
             {task.dateOfEnd ?

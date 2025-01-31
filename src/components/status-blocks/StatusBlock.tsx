@@ -10,7 +10,7 @@ export function StatusBlock({
                               handleSetTask,
                               handleClickCheckbox,
                               handleDeleteClick,
-                              status
+                              status, DnDMoveTask
                             }: ISectionStatusProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const handleCrossClick = () => {
@@ -24,13 +24,16 @@ export function StatusBlock({
     <>
       <div className={`container`}>
         <div className="add-cross" onClick={handleCrossClick}></div>
-        <h1>In progress</h1>
+        <h1>{status}</h1>
         <PriorityBlock status={status} priority={'high'} tasks={getFilteredTaskByPriority(tasks, 'high')}
-                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
+                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
+                       DnDMoveTask={DnDMoveTask} />
         <PriorityBlock status={status} priority={'medium'} tasks={getFilteredTaskByPriority(tasks, 'medium')}
-                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
+                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
+                       DnDMoveTask={DnDMoveTask} />
         <PriorityBlock status={status} priority={'low'} tasks={getFilteredTaskByPriority(tasks, 'low')}
-                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
+                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
+                       DnDMoveTask={DnDMoveTask} />
       </div>
       {modalVisible && (<Modal status={status} onClose={handleClose} handleSetTask={handleSetTask} />)}
     </>
