@@ -5,9 +5,14 @@ import { PriorityBlock } from '../PriorityBlock/PriorityBlock.tsx';
 import { Modal } from '../modal/Modal.tsx';
 import { ISectionStatusProps } from '../../utils/types.ts';
 
-export function InProgress({ tasks, handleSetTask, handleClickCheckbox, handleDeleteClick }: ISectionStatusProps) {
+export function StatusBlock({
+                              tasks,
+                              handleSetTask,
+                              handleClickCheckbox,
+                              handleDeleteClick,
+                              status
+                            }: ISectionStatusProps) {
   const [modalVisible, setModalVisible] = useState(false);
-
   const handleCrossClick = () => {
     setModalVisible(true);
   };
@@ -20,14 +25,14 @@ export function InProgress({ tasks, handleSetTask, handleClickCheckbox, handleDe
       <div className={`container`}>
         <div className="add-cross" onClick={handleCrossClick}></div>
         <h1>In progress</h1>
-        <PriorityBlock status={'in progress'} priority={'high'} tasks={getFilteredTaskByPriority(tasks, 'high')}
+        <PriorityBlock status={status} priority={'high'} tasks={getFilteredTaskByPriority(tasks, 'high')}
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
-        <PriorityBlock status={'in progress'} priority={'medium'} tasks={getFilteredTaskByPriority(tasks, 'medium')}
+        <PriorityBlock status={status} priority={'medium'} tasks={getFilteredTaskByPriority(tasks, 'medium')}
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
-        <PriorityBlock status={'in progress'} priority={'low'} tasks={getFilteredTaskByPriority(tasks, 'low')}
+        <PriorityBlock status={status} priority={'low'} tasks={getFilteredTaskByPriority(tasks, 'low')}
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
       </div>
-      {modalVisible && (<Modal status={'in progress'} onClose={handleClose} handleSetTask={handleSetTask} />)}
+      {modalVisible && (<Modal status={status} onClose={handleClose} handleSetTask={handleSetTask} />)}
     </>
   );
 }

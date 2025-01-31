@@ -1,10 +1,11 @@
 import './app.scss';
-import { Todo } from '../status-blocks/Todo.tsx';
-import { InProgress } from '../status-blocks/InProgress.tsx';
 import { Done } from '../status-blocks/Done.tsx';
 import { useState } from 'react';
 import { ITaskItem } from '../../utils/types.ts';
 import { getFilteredTaskByStatus, setInitialLocalStorage, setLocalStorage } from '../../utils/utils.tsx';
+import { StatusBlock } from '../status-blocks/StatusBlock.tsx';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export function App() {
   const [tasks, setTasks] = useState<ITaskItem[]>(setInitialLocalStorage());
@@ -46,13 +47,15 @@ export function App() {
 
 
   return (
-    <>
-      <Todo tasks={tasksToDo} handleSetTask={handleSetTask} handleClickCheckbox={handleClickCheckbox}
-            handleDeleteClick={handleDeleteClick} />
-      <InProgress tasks={tasksInProg} handleSetTask={handleSetTask} handleClickCheckbox={handleClickCheckbox}
-                  handleDeleteClick={handleDeleteClick} />
+    <DndProvider backend={HTML5Backend}>
+      <StatusBlock status={'to do'} tasks={tasksToDo} handleSetTask={handleSetTask}
+                   handleClickCheckbox={handleClickCheckbox}
+                   handleDeleteClick={handleDeleteClick} />
+      <StatusBlock status={'in progress'} tasks={tasksInProg} handleSetTask={handleSetTask}
+                   handleClickCheckbox={handleClickCheckbox}
+                   handleDeleteClick={handleDeleteClick} />
       <Done tasks={tasksDone} handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick} />
-    </>
+    </DndProvider>
   );
 }
 
