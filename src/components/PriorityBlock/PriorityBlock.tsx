@@ -3,11 +3,13 @@ import { ITaskItem, TPriority, TStatus } from '../../utils/types.ts';
 
 import { NoteItem } from '../NoteItem/NoteItem.tsx';
 import { useDrop } from 'react-dnd';
+import { useRef } from 'react';
 
 interface IPriorityBlock {
   status: TStatus;
   priority: TPriority;
   tasks: ITaskItem[] | null;
+  className?: string;
   handleClickCheckbox: (taskID: string) => void;
   handleDeleteClick: (taskID: string) => void;
   DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
@@ -19,9 +21,11 @@ export function PriorityBlock({
                                 tasks,
                                 handleClickCheckbox,
                                 handleDeleteClick,
-                                DnDMoveTask
+                                DnDMoveTask,
+                                className
                               }: IPriorityBlock) {
-  const [{ handlerId }, dropRefTarget] = useDrop(
+  const dropRefTarget = useRef<HTMLDivElement>(null);
+  const [{ handlerId }, drop] = useDrop(
     () => ({
       accept: 'task',
       collect(monitor) {
@@ -34,10 +38,11 @@ export function PriorityBlock({
       })
     }), [status, priority]
   );
+  drop(dropRefTarget);
 
   if (tasks) {
     return (
-      <div className="priority-block" ref={dropRefTarget} data-handler-id={handlerId}>
+      <div className={`${className} priority-block`} ref={dropRefTarget} data-handler-id={handlerId}>
         {status === 'done' ? tasks.length ? <h2 className={`low`}> Good job!</h2> : null :
           <h2 className={`${priority}`}>{priority} priority</h2>}
         <ul className="note-container">

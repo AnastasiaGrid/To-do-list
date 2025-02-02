@@ -43,7 +43,7 @@ export function NoteItem({
     end(item: IDragEl, monitor) {
       const dropResult = monitor.getDropResult() as IDropResult;
       if (dropResult === null) {
-        alert('Перемещение вне зоны задач : переносите задачу только туда, где есть список');
+        // alert('Перемещение вне зоны задач : переносите задачу только туда, где есть список');
         DnDMoveTask(item.priority, item.status, item.id);
       } else {
         DnDMoveTask(dropResult.priority, dropResult.name, item.id);
@@ -54,16 +54,16 @@ export function NoteItem({
 
   return (
     <>
-      <li className="note-list">
-        <div className="drag-and-drop-dots" ref={dragRef}>
+      <li className="note-list" ref={dragRef}>
+        <div className="drag-and-drop-dots">
           <span className={`dot ${isDoneStyle}`}></span>
           <span className={`dot ${isDoneStyle}`}></span>
           <span className={`dot ${isDoneStyle}`}></span>
         </div>
-        <div className={`note-list-item ${isDoneStyle} ${opacity}`} ref={dragRef}>
+        <div className={`note-list-item ${isDoneStyle} ${opacity}`}>
           <div className="note-list-text">
             <p className="note-list-title">{task.title}</p>
-            {task.dateOfEnd ?
+            {task.dateOfEnd && task.status !== 'done' ?
               <p className={`note-list-date ${deadline}`}>до {toFormatDate(task.dateOfEnd)}</p> : null
             }
           </div>
