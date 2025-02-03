@@ -7,10 +7,10 @@ interface IInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onCha
   error?: string | null;
 }
 
-export const Input = ({ inputRef, onChange, error, ...props }: IInputProps) => {
+export const Input = ({ inputRef, onChange, error, value, ...props }: IInputProps) => {
   return (
     <label>
-      <input ref={inputRef} className={error ? 'input_error' : undefined} autoComplete={'off'} {...props}
+      <input ref={inputRef} className={error ? 'input_error' : undefined} autoComplete={'off'} value={value} {...props}
              onChange={(e) => onChange?.(e?.target?.value)} />
       <span className="error_span">{error}</span>
     </label>

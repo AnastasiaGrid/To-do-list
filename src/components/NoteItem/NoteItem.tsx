@@ -10,8 +10,9 @@ import { useDrag } from 'react-dnd';
 interface INoteItemProps {
   task: ITaskItem;
   index: number;
-  handleClickCheckbox: (taskID: string) => void;
+  handleClickCheckbox?: (taskID: string) => void;
   handleDeleteClick: (taskID: string) => void;
+  handleEditClick?: (task: ITaskItem) => void;
   DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
 }
 
@@ -20,10 +21,11 @@ export function NoteItem({
                            index,
                            handleClickCheckbox,
                            handleDeleteClick,
+                           handleEditClick,
                            DnDMoveTask
                          }: INoteItemProps): ReactElement {
-  const isDoneStyle = task.status !== 'done' ? task.priority : 'low';
   const isDoneChecked = task.status === 'done';
+  const isDoneStyle = isDoneChecked ? 'low' : task.priority;
   const deadline = validationDateOfEnd(task.dateOfEnd, task) ? 'note-list-date_deadline' : null;
 
   // @TODO передаю два раза таскид в функию удаления таски и переноса в дан  может можно просто пережданосить ид?
@@ -63,14 +65,26 @@ export function NoteItem({
         <div className={`note-list-item ${isDoneStyle} ${opacity}`}>
           <div className="note-list-text">
             <p className="note-list-title">{task.title}</p>
-            {task.dateOfEnd && task.status !== 'done' ?
+            {task.dateOfEnd && !isDoneChecked ?
               <p className={`note-list-date ${deadline}`}>до {toFormatDate(task.dateOfEnd)}</p> : null
             }
           </div>
           <div className="note-list_container">
             <label form="in done"></label>
-            <Checkbox type="checkbox" id="in done" name="checkbox" value={task.id} onChange={handleClickCheckbox}
-                      checked={isDoneChecked} className="note-list_container-checkbox" />
+            {!isDoneChecked ?
+              <Checkbox type="checkbox" id="in done" name="checkbox" value={task.id} onChange={handleClickCheckbox}
+                        checked={isDoneChecked} className="note-list_container-checkbox" /> : null}
+            {!isDoneChecked ?
+              <div className="note-list_container-svg" onClick={() => handleEditClick?.(task)}>
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0,0,256,256">
+                  <g fill="#ffffff">
+                    <g transform="scale(16,16)">
+                      <path
+                        d="M12.03125,2.02344c-0.49609,0 -0.96484,0.24609 -1.35547,0.63281l-8.11328,8.07031l-1.35547,4.05859l4.05859,-1.35156l0.08594,-0.08203l8.03516,-7.98438c0.38672,-0.39062 0.62891,-0.85937 0.62891,-1.35547c0,-0.49609 -0.24219,-0.96484 -0.62891,-1.35547c-0.39062,-0.38672 -0.85937,-0.63281 -1.35547,-0.63281zM10.02734,4.71094l1.29297,1.29688l-6.59375,6.55469l-1.9375,0.64453l0.64844,-1.94141z"></path>
+                    </g>
+                  </g>
+                </svg>
+              </div> : null}
             <div className="note-list_container-svg" onClick={() => handleDeleteClick(task.id)}>
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 30 30">
                 <path

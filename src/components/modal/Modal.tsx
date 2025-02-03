@@ -1,30 +1,20 @@
 import { FormEvent, ReactElement, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './modal.scss';
-import { setToday, validationOnSubmit, validationValues } from '../../utils/utils.tsx';
-import { IModalProps, ITaskItem, TErrors } from '../../utils/types.ts';
+import { validationOnSubmit, validationValues } from '../../utils/utils.tsx';
+import { IModalProps, initialValue, ITaskItem, TErrors } from '../../utils/types.ts';
 import { ModalOverlay } from './ModalOverlay.tsx';
 import { Input } from './ui/Input.tsx';
 import { Textarea } from './ui/Textarea.tsx';
 import { Select } from './ui/Select.tsx';
-import { nanoid } from 'nanoid';
 
 const modalRoot = document.getElementById('modal');
 
-export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactElement => {
-  const date = setToday();
-  const initialValue: ITaskItem = {
-    status: status,
-    title: '',
-    description: '',
-    priority: 'high',
-    dateOfStart: date,
-    dateOfEnd: '',
-    id: nanoid()
-  };
+export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps): ReactElement => {
 
-  const [form, setForm] = useState<ITaskItem>(initialValue);
   const [errors, setErrors] = useState<TErrors | null>(null);
+  initialValue.status = status;
+  const [form, setForm] = useState<ITaskItem>(taskEdit || initialValue);
 
   //на каждое изменение инпутов запускается валидация и запись в состояние form
   const handleOnChange = (formKey: keyof ITaskItem) => {
@@ -49,7 +39,6 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
       setErrors(submitErrors);
       return;
     }
-
     handleSetTask?.(form);
     onClose();
   };
@@ -63,22 +52,23 @@ export const Modal = ({ status, onClose, handleSetTask }: IModalProps): ReactEle
           <div className="content">
             <h3>{status}</h3>
             <Input type="text" name="title of task" id="title" placeholder="Название задачи" error={errors?.title}
+                   value={form.title}
                    onChange={handleOnChange('title')} />
-            <Textarea id="content" placeholder="Описание..." rows={5}
+            <Textarea id="content" placeholder="Описание..." rows={5} value={form.description}
                       onChange={handleOnChange('description')} />
             <div className="content-details">
               <div className="content-details__group">
                 <p>Выберите приоритет</p>
-                <Select name="Приоритет" id="name" onChange={handleOnChange('priority')} />
+                <Select name="Приоритет" id="name" onChange={handleOnChange('priority')} value={form.priority} />
               </div>
               <div className="content-details__group">
                 <p>Дата создания</p>
-                <span className="content-details__group-date"><p>{date}</p></span>
+                <span className="content-details__group-date"><p>{form.dateOfStart}</p></span>
               </div>
               <div className="content-details__group">
                 <p>Выполнить до</p>
                 <Input type="date" name="date of end" id="dateOfEnd"
-                       onChange={handleOnChange('dateOfEnd')} error={errors?.dateOfEnd} />
+                       onChange={handleOnChange('dateOfEnd')} error={errors?.dateOfEnd} value={form.dateOfEnd} />
               </div>
             </div>
             <button type="submit" disabled={!!isValid}>Сохранить изменения</button>

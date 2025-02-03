@@ -4,7 +4,6 @@ import { ISectionStatusProps } from '../../utils/types.ts';
 
 export function Done({
                        tasks,
-                       handleClickCheckbox,
                        handleDeleteClick,
                        DnDMoveTask
                      }: Omit<ISectionStatusProps, 'status'>) {
@@ -13,7 +12,7 @@ export function Done({
       <div className={`container`}>
         <h1>Done</h1>
         <PriorityBlock status={'done'} priority={'low'} tasks={tasks}
-                       handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
+                       handleDeleteClick={handleDeleteClick}
                        DnDMoveTask={DnDMoveTask} className={'full_height'} />
       </div>
     </>

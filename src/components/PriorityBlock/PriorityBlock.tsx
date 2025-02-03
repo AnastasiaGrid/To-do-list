@@ -10,8 +10,9 @@ interface IPriorityBlock {
   priority: TPriority;
   tasks: ITaskItem[] | null;
   className?: string;
-  handleClickCheckbox: (taskID: string) => void;
+  handleClickCheckbox?: (taskID: string) => void;
   handleDeleteClick: (taskID: string) => void;
+  handleEditClick?: (task: ITaskItem) => void;
   DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
 }
 
@@ -21,6 +22,7 @@ export function PriorityBlock({
                                 tasks,
                                 handleClickCheckbox,
                                 handleDeleteClick,
+                                handleEditClick,
                                 DnDMoveTask,
                                 className
                               }: IPriorityBlock) {
@@ -49,6 +51,7 @@ export function PriorityBlock({
           {tasks.map((task: ITaskItem, index: number) => <NoteItem task={task} index={index} key={task.id}
                                                                    handleClickCheckbox={handleClickCheckbox}
                                                                    handleDeleteClick={handleDeleteClick}
+                                                                   handleEditClick={handleEditClick}
                                                                    DnDMoveTask={DnDMoveTask} />)}
         </ul>
       </div>
