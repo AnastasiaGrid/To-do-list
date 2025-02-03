@@ -1,6 +1,3 @@
-import { nanoid } from 'nanoid';
-import { setToday } from './utils.tsx';
-
 export interface ITaskItem {
   status: TStatus,
   title: string,
@@ -14,7 +11,7 @@ export interface ITaskItem {
 export interface IModalProps {
   status: TStatus;
   onClose: () => void;
-  handleSetTask?: (task: ITaskItem) => void;
+  handleSetTask?: (task: ITaskItem, isOldTask: boolean) => void;
   taskEdit: ITaskItem | null;
 }
 
@@ -37,7 +34,7 @@ export interface INoteItemUI {
 export interface ISectionStatusProps {
   tasks: ITaskItem[];
   status: TStatus;
-  handleSetTask?: (task: ITaskItem) => void;
+  handleSetTask?: (task: ITaskItem, isOldTask: boolean) => void;
   handleClickCheckbox?: (taskID: string) => void;
   handleEditClick?: (taskID: string) => void;
   handleDeleteClick: (taskID: string) => void;
@@ -59,13 +56,3 @@ export interface IDropResult {
   priority: TPriority;
 }
 
-const date = setToday();
-export const initialValue: ITaskItem = {
-  status: 'to do',
-  title: '',
-  description: '',
-  priority: 'high',
-  dateOfStart: date,
-  dateOfEnd: '',
-  id: nanoid()
-};

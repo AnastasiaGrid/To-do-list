@@ -15,13 +15,12 @@ export function App() {
   const tasksInProg = getFilteredTaskByStatus(tasks, 'in progress');
   const tasksDone = getFilteredTaskByStatus(tasks, 'done');
 
-  const handleSetTask = (task: ITaskItem) => {
+  const handleSetTask = (task: ITaskItem, isOldTask: boolean) => {
     setTasks(prev => {
       //если редактирование
-      const isOldTask = prev.some(item => item.id === task.id);
       if (isOldTask) {
         const oldEditTask = prev.map(item => item.id === task.id ? task : item);
-        setLocalStorage([...oldEditTask]);
+        setLocalStorage(oldEditTask);
         return oldEditTask;
       }
       const newTasks = [...prev, task];

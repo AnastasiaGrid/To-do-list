@@ -1,4 +1,5 @@
 import { ITaskItem, TErrors, TPriority, TStatus } from './types.ts';
+import { nanoid } from 'nanoid';
 
 //работа с датами
 export function setToday(): string {
@@ -13,6 +14,18 @@ export function toFormatDate(date: string): string {
   return date.split('-').reverse().join('.');
 }
 
+const date = setToday();
+export const getInitialValue = (status: TStatus): ITaskItem => {
+  return {
+    status: status,
+    title: '',
+    description: '',
+    priority: 'high',
+    dateOfStart: date,
+    dateOfEnd: '',
+    id: nanoid()
+  };
+};
 
 //Работа с локал сторадж
 

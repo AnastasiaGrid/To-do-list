@@ -13,9 +13,9 @@ export const Select = ({ name, id, onChange, value }: ISelectProps) => {
   return (
     <select name={name} id={id} value={value}
             onChange={(e) => onChange?.(e?.target?.value as TPriority)}>
-      <option value="high" selected={value === 'high'}>High priority</option>
-      <option value="medium" selected={value === 'medium'}>Medium priority</option>
-      <option value="low" selected={value === 'low'}>Low priority</option>
+      <option value={value} selected={value === 'high'}>High priority</option>
+      <option value={value} selected={value === 'medium'}>Medium priority</option>
+      <option value={value} selected={value === 'low'}>Low priority</option>
     </select>
   );
 };

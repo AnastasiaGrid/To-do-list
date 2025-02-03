@@ -1,8 +1,8 @@
 import { FormEvent, ReactElement, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './modal.scss';
-import { validationOnSubmit, validationValues } from '../../utils/utils.tsx';
-import { IModalProps, initialValue, ITaskItem, TErrors } from '../../utils/types.ts';
+import { getInitialValue, validationOnSubmit, validationValues } from '../../utils/utils.tsx';
+import { IModalProps, ITaskItem, TErrors } from '../../utils/types.ts';
 import { ModalOverlay } from './ModalOverlay.tsx';
 import { Input } from './ui/Input.tsx';
 import { Textarea } from './ui/Textarea.tsx';
@@ -13,8 +13,7 @@ const modalRoot = document.getElementById('modal');
 export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps): ReactElement => {
 
   const [errors, setErrors] = useState<TErrors | null>(null);
-  initialValue.status = status;
-  const [form, setForm] = useState<ITaskItem>(taskEdit || initialValue);
+  const [form, setForm] = useState<ITaskItem>(taskEdit || getInitialValue(status));
 
   //на каждое изменение инпутов запускается валидация и запись в состояние form
   const handleOnChange = (formKey: keyof ITaskItem) => {
@@ -39,7 +38,7 @@ export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps)
       setErrors(submitErrors);
       return;
     }
-    handleSetTask?.(form);
+    handleSetTask?.(form, !!taskEdit);
     onClose();
   };
 
