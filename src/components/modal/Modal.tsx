@@ -14,6 +14,7 @@ export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps)
 
   const [errors, setErrors] = useState<TErrors | null>(null);
   const [form, setForm] = useState<ITaskItem>(taskEdit || getInitialValue(status));
+  const [counterCurrent, setCounterCurrent] = useState(form.description.length);
 
   //на каждое изменение инпутов запускается валидация и запись в состояние form
   const handleOnChange = (formKey: keyof ITaskItem) => {
@@ -27,6 +28,9 @@ export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps)
         ...prevErrors,
         [formKey]: validateFn?.(value, form)
       }));
+      if (formKey === 'description') {
+        setCounterCurrent(value.length);
+      }
     };
   };
 
@@ -52,13 +56,14 @@ export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps)
             <h3>{status}</h3>
             <Input type="text" name="title of task" id="title" placeholder="Название задачи" error={errors?.title}
                    value={form.title}
-                   onChange={handleOnChange('title')} />
-            <Textarea id="content" placeholder="Описание..." rows={5} value={form.description}
+                   onChange={handleOnChange('title')} autoFocus={true} />
+            <Textarea id="content" placeholder="Описание..." rows={3} value={form.description}
+                      counterCurrent={counterCurrent}
                       onChange={handleOnChange('description')} />
             <div className="content-details">
               <div className="content-details__group">
                 <p>Выберите приоритет</p>
-                <Select name="Приоритет" id="name" onChange={handleOnChange('priority')} value={form.priority} />
+                <Select name="Приоритет" id="name" onChange={handleOnChange('priority')} />
               </div>
               <div className="content-details__group">
                 <p>Дата создания</p>
