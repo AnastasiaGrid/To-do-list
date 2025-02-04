@@ -68,10 +68,12 @@ export function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <StatusBlock status={'to do'} tasks={tasksToDo} handleSetTask={handleSetTask}
+      <StatusBlock status={'to do'} tasks={tasksToDo}
+                   handleSetTask={handleSetTask}
                    handleClickCheckbox={handleClickCheckbox}
                    handleDeleteClick={handleDeleteClick} DnDMoveTask={DnDMoveTask} />
-      <StatusBlock status={'in progress'} tasks={tasksInProg} handleSetTask={handleSetTask}
+      <StatusBlock status={'in progress'} tasks={tasksInProg}
+                   handleSetTask={handleSetTask}
                    handleClickCheckbox={handleClickCheckbox}
                    handleDeleteClick={handleDeleteClick} DnDMoveTask={DnDMoveTask} />
       <Done tasks={tasksDone} handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}

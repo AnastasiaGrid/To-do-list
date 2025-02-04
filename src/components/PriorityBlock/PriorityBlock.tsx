@@ -42,20 +42,19 @@ export function PriorityBlock({
   );
   drop(dropRefTarget);
 
-  if (tasks) {
-    return (
-      <div className={`${className} priority-block`} ref={dropRefTarget} data-handler-id={handlerId}>
-        {status === 'done' ? tasks.length ? <h2 className={`low`}> Good job!</h2> : null :
-          <h2 className={`${priority}`}>{priority} priority</h2>}
+  return (
+    <div className={`${className} priority-block`} ref={dropRefTarget} data-handler-id={handlerId}>
+      {status === 'done' ? tasks?.length ? <h2 className={`low`}> Good job!</h2> : null :
+        <h2 className={`${priority}`}>{priority} priority</h2>}
+      {tasks ?
         <ul className="note-container">
           {tasks.map((task: ITaskItem, index: number) => <NoteItem task={task} index={index} key={task.id}
                                                                    handleClickCheckbox={handleClickCheckbox}
                                                                    handleDeleteClick={handleDeleteClick}
                                                                    handleEditClick={handleEditClick}
                                                                    DnDMoveTask={DnDMoveTask} />)}
-        </ul>
-      </div>
-    );
-  }
-  return null;
+        </ul> : null
+      }
+    </div>
+  );
 }

@@ -27,13 +27,13 @@ export function StatusBlock({
     setModalVisible(true);
     setTaskEdit(task);
   };
-
   return (
     <>
-      <div className={`container`}>
+      <section className="container">
         <div className="add-cross" onClick={handleCrossClick}></div>
         <h1>{status}</h1>
-        <PriorityBlock status={status} priority={'high'} tasks={getFilteredTaskByPriority(tasks, 'high')}
+        <PriorityBlock status={status} priority={'high'}
+                       tasks={getFilteredTaskByPriority(tasks, 'high')}
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
                        handleEditClick={handleEditClick}
                        DnDMoveTask={DnDMoveTask} />
@@ -45,7 +45,7 @@ export function StatusBlock({
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
                        handleEditClick={handleEditClick}
                        DnDMoveTask={DnDMoveTask} />
-      </div>
+      </section>
       {modalVisible && (
         <Modal status={status} onClose={handleClose} handleSetTask={handleSetTask} taskEdit={taskEdit} />)}
     </>
