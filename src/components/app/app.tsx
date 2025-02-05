@@ -29,20 +29,18 @@ export function App() {
     });
   };
 
-  const handleClickCheckbox = (taskId: string) => {
-    const newArr = tasks.map(item => {
-      if (item.id === taskId) {
-        item.status = 'done';
-      }
-      return item;
-    });
-    setTasks(() => {
+  const handleClickCheckbox = (checked: boolean, task: ITaskItem) => {
+    setTasks((prevTasks) => {
+      const newArr = prevTasks.map(item => {
+        if (item.id === task.id) {
+          item.status = checked ? 'done' : 'to do';
+        }
+        return item;
+      });
       setLocalStorage(newArr);
       return newArr;
     });
-    //@TODO добавить модалку с вопросом "Отметить как выполненное?" и добавить галочку больше не спрашивать
   };
-
 
   const handleDeleteClick = (taskID: string) => {
     const newArr = tasks.filter(item => item.id !== taskID);

@@ -1,20 +1,10 @@
 import { ReactElement } from 'react';
 import './note-item.scss';
 import '../PriorityBlock/priority-block.scss';
-import { IDragEl, IDropResult, ITaskItem, TPriority, TStatus } from '../../utils/types.ts';
+import { IDragEl, IDropResult, INoteItemProps } from '../../utils/types.ts';
 import { Checkbox } from '../modal/ui/Checkbox.tsx';
 import { toFormatDate, validationDateOfEnd } from '../../utils/utils.tsx';
 import { useDrag } from 'react-dnd';
-
-
-interface INoteItemProps {
-  task: ITaskItem;
-  index: number;
-  handleClickCheckbox?: (taskID: string) => void;
-  handleDeleteClick: (taskID: string) => void;
-  handleEditClick?: (task: ITaskItem) => void;
-  DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
-}
 
 export function NoteItem({
                            task,
@@ -71,9 +61,11 @@ export function NoteItem({
           </div>
           <div className="note-list_container">
             <label form="in done">
-              {!isDoneChecked ?
-                <Checkbox type="checkbox" id="in done" name="checkbox" value={task.id} onChange={handleClickCheckbox}
-                          checked={isDoneChecked} className="note-list_container-checkbox" /> : null}
+              <Checkbox type="checkbox" id="in done" name="checkbox"
+                        onChange={(checked: boolean) => {
+                          handleClickCheckbox?.(checked, task);
+                        }}
+                        defaultChecked={task.status === 'done'} className="note-list_container-checkbox" />
             </label>
             {!isDoneChecked ?
               <div className="note-list_container-svg" onClick={() => handleEditClick?.(task)}>
