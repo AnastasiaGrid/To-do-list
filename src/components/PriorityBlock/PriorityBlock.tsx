@@ -1,20 +1,9 @@
 import './priority-block.scss';
-import { ITaskItem, TPriority, TStatus } from '../../utils/types.ts';
+import { IPriorityBlock, ITaskItem } from '../../utils/types.ts';
 
 import { NoteItem } from '../NoteItem/NoteItem.tsx';
 import { useDrop } from 'react-dnd';
 import { useRef } from 'react';
-
-interface IPriorityBlock {
-  status: TStatus;
-  priority: TPriority;
-  tasks: ITaskItem[] | null;
-  className?: string;
-  handleClickCheckbox?: (taskID: string) => void;
-  handleDeleteClick: (taskID: string) => void;
-  handleEditClick?: (task: ITaskItem) => void;
-  DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
-}
 
 export function PriorityBlock({
                                 status,

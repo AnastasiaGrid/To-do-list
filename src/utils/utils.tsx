@@ -69,7 +69,7 @@ export const validationDateOfEnd = (dateOfEnd: string, allValues: Partial<ITaskI
     const endArr = dateOfEnd.split('-');
     const start = allValues.dateOfStart.split('.').reverse().join('.');
     const yearOfEnd = Number(endArr[0]);
-    if (allValues.dateOfEnd === '') {
+    if (allValues.dateOfEnd === '' || yearOfEnd === 0) {
       return null;
     }
     if (yearOfEnd < 2025 || yearOfEnd > 2030) {

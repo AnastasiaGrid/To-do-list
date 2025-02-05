@@ -31,13 +31,33 @@ export interface INoteItemUI {
   status: TStatus,
 }
 
+export interface IPriorityBlock {
+  status: TStatus;
+  priority: TPriority;
+  tasks: ITaskItem[] | null;
+  className?: string;
+  handleClickCheckbox?: (checked: boolean, task: ITaskItem) => void;
+  handleDeleteClick: (taskID: string) => void;
+  handleEditClick?: (task: ITaskItem) => void;
+  DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
+}
+
 export interface ISectionStatusProps {
   tasks: ITaskItem[];
   status: TStatus;
   handleSetTask?: (task: ITaskItem, isOldTask: boolean) => void;
-  handleClickCheckbox?: (taskID: string) => void;
+  handleClickCheckbox?: (checked: boolean, task: ITaskItem) => void;
   handleEditClick?: (taskID: string) => void;
   handleDeleteClick: (taskID: string) => void;
+  DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
+}
+
+export interface INoteItemProps {
+  task: ITaskItem;
+  index: number;
+  handleClickCheckbox?: (checked: boolean, task: ITaskItem) => void;
+  handleDeleteClick: (taskID: string) => void;
+  handleEditClick?: (task: ITaskItem) => void;
   DnDMoveTask: (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => void;
 }
 
