@@ -2,12 +2,12 @@
 
 @mixin modal-el-edit {
   width: 100%;
-  background-color: global.$high-priority-color;
+  background-color: #ffff;
   border: none;
   border-radius: 2px;
   padding: 10px;
   box-sizing: border-box;
-  color: global.$font-color;
+  color: global.$main-color;
   font-family: Inter, sans-serif;
   font-size: global.$font-size-s;
 }
@@ -79,6 +79,14 @@
   width: 100%;
   box-sizing: border-box;
   padding: 15px 20px;
+}
+
+.status__title {
+  color: global.$main-color;
+  font-size: global.$font-size-xl;
+  border: none;
+  background-color: transparent;
+  font-family: Inter, sans-serif;
 }
 
 .content {
@@ -156,7 +164,7 @@
   }
 
   span p {
-    color: global.$font-color;
+    color: global.$main-color;
   }
 
   select {
@@ -169,7 +177,7 @@
   }
 
   input {
-    color: global.$font-color;
+    color: global.$main-color;
   }
 
   .error_span {
@@ -199,7 +207,7 @@ input, textarea :focus-visible {
   position: absolute;
   bottom: 10px;
   right: 10px;
-  background-color: global.$high-priority-color;
+  background-color: #fff;
 }
 
 @media(max-width: 589px) {

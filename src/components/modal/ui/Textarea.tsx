@@ -3,20 +3,21 @@ import '../modal.scss';
 
 interface ITextAreaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
   textAreaRef?: ForwardedRef<HTMLTextAreaElement>;
-  counterCurrent: number;
+  maxLength: number;
   onChange?: (value: string) => void;
+  showCounter?: boolean;
 }
 
 
-export const Textarea = ({ value, textAreaRef, counterCurrent, onChange, ...props }: ITextAreaProps) => {
+export const Textarea = ({ value, textAreaRef, showCounter, onChange, maxLength, ...props }: ITextAreaProps) => {
   return (
     <label>
       <textarea ref={textAreaRef} value={value} {...props} onChange={(e) => onChange?.(e?.target?.value)}
-                maxLength={100} />
-      <div className="counter">
-        <span className="counter__current">{counterCurrent}</span>&nbsp;/
-        <span className="counter__total">100</span>
-      </div>
+                maxLength={maxLength} />
+      {showCounter && <div className="counter">
+        <span className="counter__current">{String(value ?? '').length}</span>&nbsp;/
+        <span className="counter__total">{maxLength}</span>
+      </div>}
     </label>
   );
 };

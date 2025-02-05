@@ -7,6 +7,7 @@ import { ModalOverlay } from './ModalOverlay.tsx';
 import { Input } from './ui/Input.tsx';
 import { Textarea } from './ui/Textarea.tsx';
 import { Select } from './ui/Select.tsx';
+import { optionsPriority, optionsStatus } from '../../utils/constants.ts';
 
 const modalRoot = document.getElementById('modal');
 
@@ -14,7 +15,6 @@ export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps)
 
   const [errors, setErrors] = useState<TErrors | null>(null);
   const [form, setForm] = useState<ITaskItem>(taskEdit || getInitialValue(status));
-  const [counterCurrent, setCounterCurrent] = useState(form.description.length);
 
   //на каждое изменение инпутов запускается валидация и запись в состояние form
   const handleOnChange = (formKey: keyof ITaskItem) => {
@@ -28,9 +28,6 @@ export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps)
         ...prevErrors,
         [formKey]: validateFn?.(value, form)
       }));
-      if (formKey === 'description') {
-        setCounterCurrent(value.length);
-      }
     };
   };
 
@@ -53,17 +50,18 @@ export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps)
         <form className="modal" noValidate onSubmit={onSubmit}>
           <div className="close-cross" onClick={onClose}></div>
           <div className="content">
-            <h3>{status}</h3>
+            <Select name="status" id="status" options={optionsStatus} value={form.status}
+                    onChange={handleOnChange('status')} className={'status__title'} />
             <Input type="text" name="title of task" id="title" placeholder="Название задачи" error={errors?.title}
                    value={form.title}
                    onChange={handleOnChange('title')} autoFocus={true} />
             <Textarea id="content" placeholder="Описание..." rows={3} value={form.description}
-                      counterCurrent={counterCurrent}
-                      onChange={handleOnChange('description')} />
+                      showCounter onChange={handleOnChange('description')} maxLength={100} />
             <div className="content-details">
               <div className="content-details__group">
                 <p>Выберите приоритет</p>
-                <Select name="Приоритет" id="name" onChange={handleOnChange('priority')} />
+                <Select name="priority" id="priority" onChange={handleOnChange('priority')} options={optionsPriority}
+                        value={form.priority} text={'priority'} />
               </div>
               <div className="content-details__group">
                 <p>Дата создания</p>
