@@ -18,9 +18,6 @@ export function NoteItem({
   const isDoneStyle = isDoneChecked ? 'low' : task.priority;
   const deadline = validationDateOfEnd(task.dateOfEnd, task) ? 'note-list-date_deadline' : null;
 
-  // @TODO передаю два раза таскид в функию удаления таски и переноса в дан  может можно просто пережданосить ид?
-
-  // const taskRef = useRef<HTMLElement>(null);
   const id = task.id;
   const status = task.status;
   const priority = task.priority;
