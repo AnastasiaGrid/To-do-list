@@ -1,5 +1,7 @@
 Пет-проект "Simple to-do list"
 =====================
+Посмотреть и попробовать можно здесь: https://anastasiagrid.github.io/To-do-list/ 
+
 Стек: HTML, SCSS, TS, React, Vite, Jest, Cypress
 
 Структура проекта:
