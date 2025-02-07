@@ -2,7 +2,7 @@ import './app.scss';
 import { Done } from '../status-blocks/Done.tsx';
 import { useState } from 'react';
 import { ITaskItem, TPriority, TStatus } from '../../utils/types.ts';
-import { getFilteredTaskByStatus, setInitialLocalStorage, setLocalStorage } from '../../utils/utils.tsx';
+import { getFilteredTaskByStatus, setInitialLocalStorage, setLocalStorage } from '../../utils/utils.ts';
 import { StatusBlock } from '../status-blocks/StatusBlock.tsx';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';

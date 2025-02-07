@@ -1,5 +1,5 @@
-import { ITaskItem, TErrors, TPriority, TStatus } from './types.ts';
-import { nanoid } from 'nanoid';
+import { ITaskItem, TErrors, TPriority, TStatus } from './types';
+// import { nanoid } from 'nanoid';
 
 //работа с датами
 export function setToday(): string {
@@ -23,7 +23,7 @@ export const getInitialValue = (status: TStatus): ITaskItem => {
     priority: 'high',
     dateOfStart: date,
     dateOfEnd: '',
-    id: nanoid()
+    id: 'nanoid()'
   };
 };
 
@@ -66,16 +66,17 @@ export const validationTitle = (inputValue: string) => {
 
 export const validationDateOfEnd = (dateOfEnd: string, allValues: Partial<ITaskItem>): string | null | undefined => {
   if (allValues.dateOfStart) {
-    const endArr = dateOfEnd.split('-');
+    const endDate = new Date(dateOfEnd);
     const start = allValues.dateOfStart.split('.').reverse().join('.');
-    const yearOfEnd = Number(endArr[0]);
-    if (allValues.dateOfEnd === '' || yearOfEnd === 0) {
+    const startDate = new Date(start);
+    const yearOfEnd = endDate.getFullYear();
+    if (dateOfEnd === '') {
       return null;
     }
-    if (yearOfEnd < 2025 || yearOfEnd > 2030) {
-      return 'Некорректный год';
+    if (yearOfEnd > 2040) {
+      return 'Далеко до дедлайна';
     }
-    return new Date(endArr.join('.')) < new Date(start) ? 'Уже просрочено' : null;
+    return endDate.getTime() < startDate.getTime() ? 'Уже просрочено' : null;
   }
 };
 

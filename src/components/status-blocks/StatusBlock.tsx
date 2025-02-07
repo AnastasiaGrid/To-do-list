@@ -1,6 +1,6 @@
 import './status-blocks.scss';
 import { useState } from 'react';
-import { getFilteredTaskByPriority } from '../../utils/utils.tsx';
+import { getFilteredTaskByPriority } from '../../utils/utils.ts';
 import { PriorityBlock } from '../PriorityBlock/PriorityBlock.tsx';
 import { Modal } from '../modal/Modal.tsx';
 import { ISectionStatusProps, ITaskItem } from '../../utils/types.ts';

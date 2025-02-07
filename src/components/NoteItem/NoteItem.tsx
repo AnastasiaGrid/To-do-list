@@ -3,7 +3,7 @@ import './note-item.scss';
 import '../PriorityBlock/priority-block.scss';
 import { IDragEl, IDropResult, INoteItemProps } from '../../utils/types.ts';
 import { Checkbox } from '../modal/ui/Checkbox.tsx';
-import { toFormatDate, validationDateOfEnd } from '../../utils/utils.tsx';
+import { toFormatDate, validationDateOfEnd } from '../../utils/utils.ts';
 import { useDrag } from 'react-dnd';
 
 export function NoteItem({

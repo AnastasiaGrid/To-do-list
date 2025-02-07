@@ -1,7 +1,7 @@
 import { FormEvent, ReactElement, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './modal.scss';
-import { getInitialValue, validationOnSubmit, validationValues } from '../../utils/utils.tsx';
+import { getInitialValue, validationOnSubmit, validationValues } from '../../utils/utils.ts';
 import { IModalProps, ITaskItem, TErrors } from '../../utils/types.ts';
 import { ModalOverlay } from './ModalOverlay.tsx';
 import { Input } from './ui/Input.tsx';
@@ -19,6 +19,10 @@ export const Modal = ({ status, onClose, handleSetTask, taskEdit }: IModalProps)
   //на каждое изменение инпутов запускается валидация и запись в состояние form
   const handleOnChange = (formKey: keyof ITaskItem) => {
     return function(value: string) {
+      if (formKey === 'dateOfEnd') {
+        const date = new Date(value);
+        date.getFullYear().toString().match(/20\d\d/);
+      }
       setForm((previousValue) => {
         return { ...previousValue, [formKey]: value };
       });
