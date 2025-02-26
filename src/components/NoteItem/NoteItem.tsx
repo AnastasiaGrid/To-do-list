@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
-import './note-item.scss';
-import '../PriorityBlock/priority-block.scss';
+import './Noteitem.module.scss';
+import '../PriorityBlock/PriorityBlock.module.scss';
 import { IDragEl, IDropResult, INoteItemProps } from '../../utils/types.ts';
-import { Checkbox } from '../modal/ui/Checkbox.tsx';
+import { Checkbox } from '../ui/Checkbox.tsx';
 import { toFormatDate, validationDateOfEnd } from '../../utils/utils.ts';
 import { useDrag } from 'react-dnd';
 

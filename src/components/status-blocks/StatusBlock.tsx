@@ -1,4 +1,4 @@
-import './status-blocks.scss';
+import './StatusBlocks.module.scss';
 import { useState } from 'react';
 import { getFilteredTaskByPriority } from '../../utils/utils.ts';
 import { PriorityBlock } from '../PriorityBlock/PriorityBlock.tsx';
@@ -52,4 +52,3 @@ export function StatusBlock({
   );
 }
 
-//в модалку передаем таску, не таскайди, потом в модалке заменяем инитиал валью на эту таску или инитиалвалью, и надо сделать валью для всех элементов формы

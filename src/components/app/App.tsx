@@ -1,4 +1,4 @@
-import './app.scss';
+import './App.module.scss';
 import { Done } from '../status-blocks/Done.tsx';
 import { useState } from 'react';
 import { ITaskItem, TPriority, TStatus } from '../../utils/types.ts';

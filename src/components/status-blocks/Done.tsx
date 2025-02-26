@@ -1,4 +1,4 @@
-import './status-blocks.scss';
+import './StatusBlocks.module.scss';
 import { PriorityBlock } from '../PriorityBlock/PriorityBlock.tsx';
 import { ISectionStatusProps } from '../../utils/types.ts';
 

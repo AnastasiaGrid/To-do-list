@@ -1,4 +1,4 @@
-import './priority-block.scss';
+import './PriorityBlock.module.scss';
 import { IPriorityBlock, ITaskItem } from '../../utils/types.ts';
 
 import { NoteItem } from '../NoteItem/NoteItem.tsx';

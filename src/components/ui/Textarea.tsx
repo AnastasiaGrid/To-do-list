@@ -1,5 +1,5 @@
 import { ForwardedRef, TextareaHTMLAttributes } from 'react';
-import '../modal.scss';
+import '../modal/modal.module.scss';
 
 interface ITextAreaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
   textAreaRef?: ForwardedRef<HTMLTextAreaElement>;

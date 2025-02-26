@@ -1,12 +1,12 @@
 import { FormEvent, ReactElement, useState } from 'react';
 import ReactDOM from 'react-dom';
-import './modal.scss';
+import './modal.module.scss';
 import { getInitialValue, validationOnSubmit, validationValues } from '../../utils/utils.ts';
 import { IModalProps, ITaskItem, TErrors } from '../../utils/types.ts';
 import { ModalOverlay } from './ModalOverlay.tsx';
-import { Input } from './ui/Input.tsx';
-import { Textarea } from './ui/Textarea.tsx';
-import { Select } from './ui/Select.tsx';
+import { Input } from '../ui/Input.tsx';
+import { Textarea } from '../ui/Textarea.tsx';
+import { Select } from '../ui/Select.tsx';
 import { optionsPriority, optionsStatus } from '../../utils/constants.ts';
 
 const modalRoot = document.getElementById('modal');

@@ -1,5 +1,5 @@
 import { ForwardedRef, InputHTMLAttributes } from 'react';
-import '../modal.scss';
+import '../modal/modal.module.scss';
 
 interface IInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   inputRef?: ForwardedRef<HTMLInputElement>;
