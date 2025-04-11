@@ -1,0 +1,12 @@
+@use 'variables' as global;
+
+@mixin modal-el-edit {
+  width: 100%;
+  background-color: #ffff;
+  border-radius: 2px;
+  padding: 10px;
+  box-sizing: border-box;
+  color: global.$main-color;
+  font-family: Inter, sans-serif;
+  font-size: global.$font-size-s;
+}

@@ -1,0 +1,110 @@
+@use '../../styles/variables' as global;
+
+.note_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  box-sizing: border-box;
+  min-height: 70px;
+  width: 100%;
+}
+
+.dnd_dots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+  cursor: move;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  display: block;
+  border-radius: 50%;
+}
+
+.item_text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: global.$border-radius;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  width: 97%;
+  min-height: 70px;
+  cursor: move;
+}
+
+.item_text_block {
+  padding: 7px;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.item_title {
+  font-size: global.$font-size-m;
+  padding-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item_date {
+  font-style: italic;
+  font-size: global.$font-size-s;
+}
+
+.date_deadline {
+  color: global.$error-color;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: global.$font-size-s;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.checkbox {
+  cursor: pointer;
+}
+
+.svg_container {
+  fill: white;
+  cursor: pointer;
+  width: 18px;
+}
+
+.high {
+  background: global.$high-priority-color;
+}
+
+.medium {
+  background: global.$medium-priority-color;
+}
+
+.low {
+  background: global.$low-priority-color;
+}
+
+@media(max-width: 1023px) {
+  .item_title {
+    font-size: global.$font-size-m;
+  }
+  .item_date {
+    font-size: global.$font-size-xs;
+  }
+}
+
+.opacity {
+  background-color: global.$error-color;
+}
