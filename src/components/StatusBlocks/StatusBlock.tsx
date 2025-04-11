@@ -1,9 +1,13 @@
-import './StatusBlocks.module.scss';
+import styles from './StatusBlocks.module.scss';
 import { useState } from 'react';
 import { getFilteredTaskByPriority } from '../../utils/utils.ts';
 import { PriorityBlock } from '../PriorityBlock/PriorityBlock.tsx';
-import { Modal } from '../modal/Modal.tsx';
-import { ISectionStatusProps, ITaskItem } from '../../utils/types.ts';
+import { Modal } from '../Modal/Modal.tsx';
+import { ITaskItem } from '../../utils/types.ts';
+import { TASK_PRIORITY } from '../../utils/constants.ts';
+import { ISectionStatusProps } from './types.ts';
+
+const { HIGH, MEDIUM, LOW } = TASK_PRIORITY;
 
 export function StatusBlock({
                               tasks,
@@ -29,19 +33,19 @@ export function StatusBlock({
   };
   return (
     <>
-      <section className="container">
-        <div className="add-cross" onClick={handleCrossClick}></div>
-        <h1>{status}</h1>
-        <PriorityBlock status={status} priority={'high'}
-                       tasks={getFilteredTaskByPriority(tasks, 'high')}
+      <section className={styles.container}>
+        <div className={styles.add_cross} onClick={handleCrossClick}></div>
+        <h1 className={styles.title}>{status}</h1>
+        <PriorityBlock status={status} priority={HIGH}
+                       tasks={getFilteredTaskByPriority(tasks, HIGH)}
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
                        handleEditClick={handleEditClick}
                        DnDMoveTask={DnDMoveTask} />
-        <PriorityBlock status={status} priority={'medium'} tasks={getFilteredTaskByPriority(tasks, 'medium')}
+        <PriorityBlock status={status} priority={MEDIUM} tasks={getFilteredTaskByPriority(tasks, MEDIUM)}
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
                        handleEditClick={handleEditClick}
                        DnDMoveTask={DnDMoveTask} />
-        <PriorityBlock status={status} priority={'low'} tasks={getFilteredTaskByPriority(tasks, 'low')}
+        <PriorityBlock status={status} priority={LOW} tasks={getFilteredTaskByPriority(tasks, LOW)}
                        handleClickCheckbox={handleClickCheckbox} handleDeleteClick={handleDeleteClick}
                        handleEditClick={handleEditClick}
                        DnDMoveTask={DnDMoveTask} />

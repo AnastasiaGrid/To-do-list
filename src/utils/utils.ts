@@ -1,5 +1,6 @@
-import { ITaskItem, TErrors, TPriority, TStatus } from './types';
-// import { nanoid } from 'nanoid';
+import { ITaskItem, TPriority, TStatus } from './types';
+import { TErrors } from '../components/Modal/types';
+import { nanoid } from 'nanoid';
 
 //работа с датами
 export function setToday(): string {
@@ -14,8 +15,8 @@ export function toFormatDate(date: string): string {
   return date.split('-').reverse().join('.');
 }
 
-const date = setToday();
 export const getInitialValue = (status: TStatus): ITaskItem => {
+  const date = setToday();
   return {
     status: status,
     title: '',
@@ -23,16 +24,11 @@ export const getInitialValue = (status: TStatus): ITaskItem => {
     priority: 'high',
     dateOfStart: date,
     dateOfEnd: '',
-    id: 'nanoid()'
+    id: nanoid()
   };
 };
 
 //Работа с локал сторадж
-
-//Устанавливает начальное значение для стейта в компоненте Section
-export function setInitialLocalStorage() {
-  return getTasksFromLocalStorage() || [];
-}
 
 //Записывает в локал
 export function setLocalStorage(data: ITaskItem[]) {
@@ -49,14 +45,13 @@ export function getTasksFromLocalStorage(): ITaskItem[] {
 }
 
 //Возвращает отфильтрованные таски по статусу для вставки компоненты для отрисовки
-export function getFilteredTaskByStatus(tasks: ITaskItem[], status?: TStatus) {
+export function getFilteredTaskByStatus(tasks: ITaskItem[], status: TStatus) {
   return tasks.filter(item => item.status === status);
 }
 
 //Возвращает отфильтрованные таски по приоритету для вставки UI
 export function getFilteredTaskByPriority(tasks: ITaskItem[], priority?: TPriority) {
-  const filteredTasksByPriority = tasks.filter(item => item.priority === priority);
-  return filteredTasksByPriority.length ? filteredTasksByPriority : null;
+  return tasks.filter(item => item.priority === priority);
 }
 
 //  ВАЛИДАЦИЯ
@@ -70,7 +65,7 @@ export const validationDateOfEnd = (dateOfEnd: string, allValues: Partial<ITaskI
     const start = allValues.dateOfStart.split('.').reverse().join('.');
     const startDate = new Date(start);
     const yearOfEnd = endDate.getFullYear();
-    if (dateOfEnd === '') {
+    if (!dateOfEnd) {
       return null;
     }
     if (yearOfEnd > 2040) {

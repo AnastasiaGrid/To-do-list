@@ -1,6 +1,6 @@
-@use '../../styles/globals' as global;
+@use '../../styles/variables' as global;
 
-.priority-block {
+.priority_block {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +9,7 @@
   margin: 0 auto;
 }
 
-.note-container {
+.note_container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,12 +20,12 @@
 
 }
 
-.priority-block {
+.priority_block {
   h2 {
     text-align: center;
     padding: 10px 20px;
     box-sizing: border-box;
-    font-size: 20px;
+    font-size: global.$font-size-m;
     width: 100%;
     border-radius: global.$border-radius;
     margin: 30px 0 15px;
@@ -46,10 +46,7 @@
 
 @media(max-width: 1023px) {
   .priority-block-title {
-    font-size: 15px;
+    font-size: global.$font-size-s;
   }
 }
 
-.full_height {
-  height: 100%;
-}

@@ -1,0 +1,15 @@
+@use '../../../styles/variables' as global;
+@use '../../../styles/mixins' as mixins;
+
+.select:focus {
+  outline: none;
+}
+
+.select:focus-visible {
+  outline: none;
+}
+
+.select {
+  @include mixins.modal-el-edit;
+  border: 2px solid transparent;
+}

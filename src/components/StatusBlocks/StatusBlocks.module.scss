@@ -1,4 +1,4 @@
-@use '../../styles/globals' as global;
+@use '../../styles/variables' as global;
 
 .container {
   height: 100%;
@@ -10,20 +10,18 @@
   min-width: 300px;
 }
 
-.container {
-  h1 {
-    text-align: center;
-    font-size: 30px;
-    margin: 0 auto;
-    color: global.$main-color;
-  }
+.title {
+  text-align: center;
+  font-size: 30px;
+  margin: 0 auto;
+  color: global.$main-color;
 
-  h1::first-letter {
+  &::first-letter {
     text-transform: uppercase;
   }
 }
 
-.add-cross {
+.add_cross {
   width: 25px;
   height: 25px;
   background-color: transparent;
@@ -33,8 +31,8 @@
   right: 10px;
 }
 
-.add-cross:before,
-.add-cross:after {
+.add_cross:before,
+.add_cross:after {
   content: "";
   display: block;
   position: absolute;
@@ -45,13 +43,12 @@
   background-color: global.$main-color;
 }
 
-.add-cross:before {
+.add_cross:before {
   webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
-@media(max-width: 1023px) {
-  .container-header {
-    font-size: 25px;
-  }
+.full_height {
+  height: 100%;
 }
+

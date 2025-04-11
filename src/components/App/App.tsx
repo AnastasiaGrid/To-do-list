@@ -1,19 +1,23 @@
-import './App.module.scss';
-import { Done } from '../status-blocks/Done.tsx';
-import { useState } from 'react';
+import { Done } from '../StatusBlocks/Done.tsx';
+import { useEffect, useState } from 'react';
 import { ITaskItem, TPriority, TStatus } from '../../utils/types.ts';
-import { getFilteredTaskByStatus, setInitialLocalStorage, setLocalStorage } from '../../utils/utils.ts';
-import { StatusBlock } from '../status-blocks/StatusBlock.tsx';
+import { getFilteredTaskByStatus, getTasksFromLocalStorage, setLocalStorage } from '../../utils/utils.ts';
+import { StatusBlock } from '../StatusBlocks/StatusBlock.tsx';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TASK_STATUS } from '../../utils/constants.ts';
 
+const { TO_DO, IN_PROGRESS, DONE } = TASK_STATUS;
 
 export function App() {
-  const [tasks, setTasks] = useState<ITaskItem[]>(setInitialLocalStorage());
+  const [tasks, setTasks] = useState<ITaskItem[]>(getTasksFromLocalStorage());
+  const tasksToDo = getFilteredTaskByStatus(tasks, TO_DO);
+  const tasksInProg = getFilteredTaskByStatus(tasks, IN_PROGRESS);
+  const tasksDone = getFilteredTaskByStatus(tasks, DONE);
 
-  const tasksToDo = getFilteredTaskByStatus(tasks, 'to do');
-  const tasksInProg = getFilteredTaskByStatus(tasks, 'in progress');
-  const tasksDone = getFilteredTaskByStatus(tasks, 'done');
+  useEffect(() => {
+    setLocalStorage(tasks);
+  }, [tasks]);
 
   const handleSetTask = (task: ITaskItem, isOldTask: boolean) => {
     setTasks(prev => {
@@ -31,23 +35,18 @@ export function App() {
 
   const handleClickCheckbox = (checked: boolean, task: ITaskItem) => {
     setTasks((prevTasks) => {
-      const newArr = prevTasks.map(item => {
+      return prevTasks.map(item => {
         if (item.id === task.id) {
-          item.status = checked ? 'done' : 'to do';
+          item.status = checked ? DONE : TO_DO;
         }
         return item;
       });
-      setLocalStorage(newArr);
-      return newArr;
     });
   };
 
   const handleDeleteClick = (taskID: string) => {
     const newArr = tasks.filter(item => item.id !== taskID);
-    setTasks(() => {
-      setLocalStorage(newArr);
-      return newArr;
-    });
+    setTasks(newArr);
   };
 
   const DnDMoveTask = (dropPriority: TPriority, dropStatus: TStatus, taskId: string) => {
@@ -58,19 +57,16 @@ export function App() {
       }
       return item;
     });
-    setTasks(() => {
-      setLocalStorage(newArr);
-      return newArr;
-    });
+    setTasks(newArr);
   };
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <StatusBlock status={'to do'} tasks={tasksToDo}
+      <StatusBlock status={TO_DO} tasks={tasksToDo}
                    handleSetTask={handleSetTask}
                    handleClickCheckbox={handleClickCheckbox}
                    handleDeleteClick={handleDeleteClick} DnDMoveTask={DnDMoveTask} />
-      <StatusBlock status={'in progress'} tasks={tasksInProg}
+      <StatusBlock status={IN_PROGRESS} tasks={tasksInProg}
                    handleSetTask={handleSetTask}
                    handleClickCheckbox={handleClickCheckbox}
                    handleDeleteClick={handleDeleteClick} DnDMoveTask={DnDMoveTask} />

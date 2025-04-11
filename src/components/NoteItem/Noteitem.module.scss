@@ -1,6 +1,6 @@
-@use '../../styles/globals' as global;
+@use '../../styles/variables' as global;
 
-.note-list {
+.note_item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-.drag-and-drop-dots {
+.dnd_dots {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,7 +27,7 @@
   border-radius: 50%;
 }
 
-.note-list-item {
+.item_text {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -40,32 +40,31 @@
   cursor: move;
 }
 
-.note-list-text {
+.item_text_block {
   padding: 7px;
   overflow: hidden;
   width: 100%;
   box-sizing: border-box;
 }
 
-.note-list-title {
-  font-size: 18px;
-  padding-bottom: 3px;
+.item_title {
+  font-size: global.$font-size-m;
+  padding-bottom: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
 }
 
-.note-list-date {
+.item_date {
   font-style: italic;
-  font-size: 14px;
+  font-size: global.$font-size-s;
 }
 
-.note-list-date_deadline {
+.date_deadline {
   color: global.$error-color;
 }
 
-.note-list_container {
+.buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -75,23 +74,33 @@
   gap: 5px;
 }
 
-.note-list_container-checkbox {
+.checkbox {
   cursor: pointer;
-
 }
 
-.note-list_container-svg {
+.svg_container {
   fill: white;
   cursor: pointer;
   width: 18px;
 }
 
+.high {
+  background: global.$high-priority-color;
+}
+
+.medium {
+  background: global.$medium-priority-color;
+}
+
+.low {
+  background: global.$low-priority-color;
+}
 
 @media(max-width: 1023px) {
-  .note-list-title {
+  .item_title {
     font-size: global.$font-size-m;
   }
-  .note-list-date {
+  .item_date {
     font-size: global.$font-size-xs;
   }
 }
