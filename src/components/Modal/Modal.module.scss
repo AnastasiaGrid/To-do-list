@@ -72,6 +72,7 @@
   width: 100%;
   box-sizing: border-box;
   padding: 15px 20px;
+  position: relative;
 }
 
 .select_status {
@@ -91,13 +92,13 @@
 }
 
 
-.error {
-  color: global.$error-color;
-  font-size: global.$font-size-xs;
-  position: absolute;
-  bottom: -15px;
-  left: 5px;
-}
+//.error {
+//  color: global.$error-color;
+//  font-size: global.$font-size-xs;
+//  position: absolute;
+//  bottom: -15px;
+//  left: 5px;
+//}
 
 .content_details {
   display: flex;
@@ -131,11 +132,6 @@
   @include modal-el-edit;
   border: 2px solid transparent;
   height: 42px;
-}
-
-.date_error {
-  bottom: -28px;
-  left: 5px;
 }
 
 .btn_submit {

@@ -37,7 +37,7 @@ export function PriorityBlock({
 
   return (
     <div className={clsx(styles.priority_block, className)} ref={dropRefTarget} data-handler-id={handlerId}>
-      {status === TASK_STATUS.DONE && tasks?.length && <h2 className={styles.low}> Good job!</h2>}
+      {status === TASK_STATUS.DONE && tasks?.length && <h2 className={styles.low}>good job!</h2>}
       {status !== TASK_STATUS.DONE && <h2 className={styles[priority]}>{priority} priority</h2>}
       {!!tasks &&
         <ul className={styles.note_container}>

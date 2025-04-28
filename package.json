@@ -14,12 +14,10 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.16.0",
     "clsx": "^2.1.1",
     "dnd-core": "^16.0.1",
     "immutability-helper": "^3.1.1",
     "nanoid": "^5.0.9",
-    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
@@ -30,6 +28,8 @@
     "vite-plugin-svgr": "^4.3.0"
   },
   "devDependencies": {
+    "prettier": "^3.3.3",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
     "@eslint/js": "^9.13.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",

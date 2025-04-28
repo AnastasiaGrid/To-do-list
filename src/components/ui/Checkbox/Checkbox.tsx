@@ -9,7 +9,7 @@ interface ICheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'on
 
 export const Checkbox = ({ defaultChecked, onChange, className, ...props }: ICheckboxProps) => {
   return (
-    <input type={'checkbox'} defaultChecked={defaultChecked} className={className}
+    <input type="checkbox" defaultChecked={defaultChecked} className={className}
            onChange={(e) => onChange?.(e?.target?.checked)}{...props} />
   );
 };

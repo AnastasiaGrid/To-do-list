@@ -6,19 +6,21 @@ interface IInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onCha
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   autoFocus?: boolean;
   error?: string | null;
-  styleError?: string;
   name: string;
+  className?: string;
 }
 
-export const Input = ({ onChange, error, value, autoFocus, name, styleError, ...props }: IInputProps) => {
+export const Input = ({ onChange, error, value, autoFocus, className, name, ...props }: IInputProps) => {
   return (
-    <>
-      <input className={clsx(styles.input, { [styles.input_error]: error })} autoComplete={'off'}
-             value={value} {...props}
+    <div className={styles.input_block}>
+      <input {...props} className={clsx(styles.input, className, { [styles.input_error]: error })}
+             autoComplete="off"
+             value={value}
              name={name}
              onChange={(event: ChangeEvent<HTMLInputElement>) => onChange?.(event)} maxLength={50}
-             autoFocus={autoFocus} />
-      <span className={clsx(styleError, styles.error_text)}>{error}</span>
-    </>
+             autoFocus={autoFocus}
+      />
+      <span className={styles.error_text}>{error}</span>
+    </div>
   );
 };

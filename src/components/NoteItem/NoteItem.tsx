@@ -21,7 +21,7 @@ export function NoteItem({
                          }: INoteItemProps): ReactElement {
   const isDone = task.status === TASK_STATUS.DONE;
   const isDoneStyle = { [styles.low]: isDone };
-  const { id, status, priority, title, dateOfEnd } = { ...task };
+  const { id, status, priority, title, dateOfEnd } = task;
   const [{ isDragging }, dragRef] = useDrag<IDragEl, IDropResult, { isDragging: boolean }>({
     type: 'task',
     item: () => {

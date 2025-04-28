@@ -14,7 +14,7 @@ export const Select = ({ name, id, onChange, value, options, additionalOptionTex
   return (
     <select name={name} id={id} value={value}
             onChange={(event: ChangeEvent<HTMLSelectElement>) => onChange?.(event)}
-            className={clsx({ [styles.select]: !className }, className)}>
+            className={clsx(styles.select && className)}>
       {options.map((option: string, index) => <option value={option}
                                                       key={index}>{option} {additionalOptionText}</option>)}
     </select>

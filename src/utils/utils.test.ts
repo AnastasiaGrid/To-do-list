@@ -26,17 +26,17 @@ describe('валидация', () => {
   ])('$description', ({ value, error }) => {
     expect(validationTitle(value)).toBe(error);
   });
-  //
-  //
-  // test('валидация пустого заголовка задачи', () => {
-  //   const res = validationTitle('');
-  //   expect(res).toBe('Не оставляй поле пустым');
-  // });
-  // test('валидация заполненного заголовка задачи', () => {
-  //   const res = validationTitle('тест');
-  //   expect(res).toBe(null);
-  // });
-
+  test.each([{
+    text: '',
+    description: 'валидация пустого заголовка задачи',
+    error: 'Не оставляй поле пустым'
+  }, {
+    text: 'test',
+    description: 'валидация заполненного заголовка задачи',
+    error: null
+  }])(`$description`, ({ text, error }) => {
+    expect(validationTitle(text)).toBe(error);
+  });
   test.each([{
     date: '',
     description: 'валидация дедлайна (дата не введена)',
@@ -56,20 +56,4 @@ describe('валидация', () => {
   }])(`$description`, ({ date, error }) => {
     expect(validationDateOfEnd(date, task)).toBe(error);
   });
-  // test('валидация дедлайна (дата не введена)', () => {
-  //   const res = validationDateOfEnd('', task);
-  //   expect(res).toBe(null);
-  // });
-  // test('валидация дедлайна (дата сильно больше настоящего года)', () => {
-  //   const res = validationDateOfEnd('12.12.2045', task);
-  //   expect(res).toBe('Далеко до дедлайна');
-  // });
-  // test('валидация дедлайна (дата меньше сегодняшней)', () => {
-  //   const res = validationDateOfEnd('12.01.2024', task);
-  //   expect(res).toBe('Уже просрочено');
-  // });
-//   test('валидация дедлайна (корректная дата)', () => {
-//     const res = validationDateOfEnd('12.07.2025', task);
-//     expect(res).toBe(null);
-//   });
 });
